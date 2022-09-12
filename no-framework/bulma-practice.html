@@ -1,0 +1,203 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulma Practice</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+
+<body>
+    <div class="navbar is-primary">
+        <div class="navbar-brand">
+            <a href="https://bulma.io/" class="navbar-item">
+                <img src="../assets/bulma-practice/bulma-logo-white.png">
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="myNavbar">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="myNavbar" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item">
+                    Home
+                </a>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Docs
+                    </a>
+
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item">
+                            Overview
+                        </a>
+                        <a class="navbar-item">
+                            Modifiers
+                        </a>
+                        <a class="navbar-item">
+                            Columns
+                        </a>
+                        <a class="navbar-item">
+                            Layout
+                        </a>
+                        <a class="navbar-item">
+                            Form
+                        </a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item">
+                            Elements
+                        </a>
+                        <a class="navbar-item is-active">
+                            Components
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button">
+                            Tweet
+                        </a>
+                        <a class="button is-primary">
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns mt-5">
+            <div class="column">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Component
+                        </p>
+                        <button class="card-header-icon" aria-label="more options">
+                            <span class="icon">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                            <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                            <br>
+                            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <a href="#" class="card-footer-item">Save</a>
+                        <a href="#" class="card-footer-item">Edit</a>
+                        <a href="#" class="card-footer-item">Delete</a>
+                    </footer>
+                </div>
+            </div>
+            <div class="column is-half">
+                <div class="box">
+                    <div class="tabs is-boxed">
+                        <ul>
+                            <li class="is-active">
+                                <a>
+                                    <span>Current</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <span>Completed</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <span>Upcoming</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <span>All</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <input class="input is-primary" type="text" placeholder="New task">
+                    <hr>
+                    <label class="checkbox">
+                        <input type="checkbox" checked>
+                        Make Bulma great again
+                    </label>
+                    <hr>
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        Add some more features
+                    </label>
+                    <hr>
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        Make a github account
+                    </label>
+                    <hr>
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        Learn how to use github
+                    </label>
+                    <hr>
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        add a .gitignore file
+                    </label>
+                </div>
+            </div>
+            <div class="column">
+                <h1 class="title">Table of Contents</h1>
+                <h2 class="subtitle">Intra-page navigation</h2>
+                <aside class="menu">
+                    <p class="menu-label">
+                        General
+                    </p>
+                    <ul class="menu-list">
+                        <li><a>Dashboard</a></li>
+                        <li><a>Customers</a></li>
+                    </ul>
+                    <p class="menu-label">
+                        Administration
+                    </p>
+                    <ul class="menu-list">
+                        <li><a>Team Settings</a></li>
+                        <li>
+                            <a class="is-active">Manage Your Team</a>
+                            <ul>
+                                <li><a>Members</a></li>
+                                <li><a>Plugins</a></li>
+                                <li><a>Add a member</a></li>
+                            </ul>
+                        </li>
+                        <li><a>Invitations</a></li>
+                        <li><a>Cloud Storage Environment Settings</a></li>
+                        <li><a>Authentication</a></li>
+                    </ul>
+                    <p class="menu-label">
+                        Transactions
+                    </p>
+                    <ul class="menu-list">
+                        <li><a>Payments</a></li>
+                        <li><a>Transfers</a></li>
+                        <li><a>Balance</a></li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
