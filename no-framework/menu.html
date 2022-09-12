@@ -1,0 +1,143 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>
+        body {
+            margin: 0;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: lightgrey;
+            display: flex;
+            flex-direction: column;
+        }
+        /* page header */
+        #header {
+            background-color: green; 
+        }
+        /* dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 75px;
+        }
+        .dropdown:hover {
+            background-color: lightgreen;
+        }
+        /* dropdown header text (file/edit/view) */
+        .dropdown-header {
+            display: inline-block;
+            background-color: none;
+            width: 75px;
+            cursor: default;
+            text-align: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        /* content of dropdown */
+        .dropdown-content { 
+            display: none;
+            position: absolute;
+            background-color: lightgreen;
+        }
+        /* reveal content on hover */
+        .dropdown:hover .dropdown-content{ 
+            display:block;
+        }
+        /* individual dropdown links */
+        .dropdown-content a { 
+            width: 75px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: greenyellow;
+        }
+        /* keep edit tab open on click */
+        .dropdown:focus.edit {
+            background-color: lightgreen;
+        }
+        .dropdown:focus.edit .dropdown-content{ 
+            display:block;
+        }
+        /* Page content */
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* individual content block */
+        .content-block {
+            max-width: 1100px;
+            margin: 20px;
+            padding: 1px 10px;
+            background-color: aliceblue;
+        }
+        /* different block border colors */
+        .content-block.green {
+            border-left: 5px solid rgb(0, 153, 0);
+        }
+        .content-block.yellow {
+            border-left: 5px solid rgb(231, 231, 1);
+        }
+
+    </style>
+</head>
+<body>
+    <div id="header">
+        <div class="dropdown">
+            <span class="dropdown-header">File</span>
+            <div class="dropdown-content">
+                <a href="#">New</a>
+                <a href="#">Open</a>
+                <a href="#">Save</a>
+                <a href="#">Print</a>
+                <a href="#">Close</a>
+            </div>
+        </div>
+        <div class="dropdown edit" tabindex="0">
+            <span class="dropdown-header edit" style="font-weight:normal;">Edit</span>
+            <div class="dropdown-content edit">
+                <a href="#">Undo</a>
+                <a href="#">Redo</a>
+                <a href="#">Cut</a>
+                <a href="#">Copy</a>
+                <a href="#">Paste</a>
+                <a href="#">Delete</a>
+                <a href="#">Select All</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <span class="dropdown-header">View</span>
+            <div class="dropdown-content">
+                <a href="#">Zoom In</a>
+                <a href="#">Zoom Out</a>
+                <a href="#">Actual Size</a>
+                <a href="#">Fit Page</a>
+                <a href="#">Fit Width</a>
+                <a href="#">Rotate Left</a>
+                <a href="#">Rotate Right</a>
+                <a href="#">Fullscreen</a>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="content-block green">
+            <h4>Instructions</h4>
+            <p>Recreate this page using <i><b>only CSS</b></i>. 
+               Do yourself a favor and 1) Do not view the source. 
+               Figure it out yourself. 2) Do not search for the solution. 
+               Learn CSS until you know enough to do this.</p>
+        </div>
+        <div class="content-block yellow">
+            <h4>Extra Credit</h4>
+            <p>Notice how the Edit menu (besides for not being bold) 
+               reacts to clicks. If you click the edit menu, it remains 
+               open until you click somewhere else. (This you might need 
+               to search for)</p>
+        </div>
+    </div>
+</body>
+</html>
