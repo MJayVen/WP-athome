@@ -1,0 +1,136 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Selectors practice</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        body {
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: lightgray;
+            line-height: 1.5em;
+        }
+
+        header {
+            background-color: rgb(29, 29, 29);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 4px black solid;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>jQuery practice</h1>
+    </header>
+    <div id="container">
+        <h1>Mouse Events</h1>
+        <button id="btn1" class="btnClass">Button 1</button>
+        <button id="btn2">Button 2</button>
+        <p class="para1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi magnam corporis neque veniam
+            dignissimos praesentium provident rerum enim, itaque eius blanditiis vitae, repellat quis odio asperiores
+            adipisci animi, distinctio similique.</p>
+        <h1 id="coords"></h1>
+        <hr>
+        <form id="form">
+            <label>Name</label><br>
+            <input type="text" name="name" id="name">
+            <br>
+            <label>Email</label><br>
+            <input type="email" name="email" id="email">
+            <br>
+            <label>Gender</label><br>
+            <select name="gender" id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        /*
+        $('#btn1').click(function(){
+            alert('Button clicked!');
+        });
+        $('#btn1').on('click', function(){
+            alert('Button clicked!');
+        });
+        $('#btn1').on('click', function(){
+            // $('p.para1').hide();
+            $('p.para1').toggle();
+        });
+        $('#btn2').on('click', function(){
+            $('p.para1').show();
+        });
+        $('#btn1').dblclick(function(){
+            $('p.para1').toggle();
+        });
+        $('#btn1').hover(function(){
+            $('p.para1').toggle();
+        });
+        $('#btn1').mousemove(function(){
+            $('p.para1').toggle();
+        });
+        $('#btn1').mousedown(function(){
+            $('p.para1').toggle();
+        });
+        $('#btn1').mouseup(function(){
+            $('p.para1').toggle();
+        });
+        $('#btn1').click(function(e){
+            // console.log(e.currentTarget.id);
+            // console.log(e.currentTarget.innerHTML);
+            // console.log(e.currentTarget.outerHTML);
+            // console.log(e.currentTarget.className)
+        });
+        
+        $(document).mousemove(function(e){
+            $('#coords').html('coords - y: '+e.clientY+' x: '+e.clientX);
+        });
+        
+
+        $('input').focus(function(){
+            // alert('Focus');
+            $(this).css('background','pink');
+        });
+        $('input').blur(function(){
+            $(this).css('background','white');
+        });
+        $('input').keyup(function(e){
+            // alert('Focus');
+            console.log(e.currentTarget.value);
+        });
+
+        $('select#gender').change(function(e){
+            alert(e.target.value);
+        });
+
+        $('#form').submit(function(e){
+            e.preventDefault();
+            var name = $('input#name').val();
+            console.log('Submitted. Name: '+name);
+        });
+
+        */
+
+        
+    </script>
+</body>
+
+</html>
