@@ -1,0 +1,19 @@
+{
+  "name": "wp-athome",
+  "version": "1.0.0",
+  "description": "Web Programming repo for out work done out of class",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MJayVen/WP-athome.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MJayVen/WP-athome/issues"
+  },
+  "homepage": "https://github.com/MJayVen/WP-athome#readme"
+}
