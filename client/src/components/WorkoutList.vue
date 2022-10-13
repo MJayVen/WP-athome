@@ -6,7 +6,7 @@ import WorkoutRecord from './WorkoutRecord.vue';
     <div class="container is-flex is-flex-direction-row is-flex-wrap-wrap-reverse is-justify-content-center">
         <div id="workoutList" class="box">
             <div class="content is-flex is-flex-direction-column">
-                <h3 class="has-text-white">Previous Workouts:</h3>
+                <h3 class="has-text-white">date1-date2</h3>
             </div>
             <WorkoutRecord />
             <WorkoutRecord />
@@ -41,6 +41,8 @@ h3 {
     padding: 0;
     min-width: 50%;
     width: 75%;
+    height: 75%;
+    overflow-y: auto;
     margin-right: 10px;
 }
 

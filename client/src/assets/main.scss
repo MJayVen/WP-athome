@@ -1,7 +1,8 @@
 @import "bulma/bulma.sass";
 @import '@fortawesome/fontawesome-free/scss/fontawesome';
 
-:root{
+// Website Color vars
+:root {
     --white: #f8f8f8;
     --navy-blue-dark: #0a192f;
     --navy-blue: #00051F;
@@ -10,4 +11,17 @@
 
 html {
     background-color: var(--navy-blue);
+    overflow-y: auto;
+}
+
+/* ScrollBar */
+// Width
+::-webkit-scrollbar {
+    width: 8px;
+}
+// Bar
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px 10px var(--white);
+    border: solid 3px transparent; // acts as margin
 }
