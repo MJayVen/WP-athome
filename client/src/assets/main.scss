@@ -1,0 +1,11 @@
+@import "bulma/bulma.sass";
+
+:root{
+    --white: #f8f8f8;
+    --navy-blue: #00051F;
+}
+
+html {
+    background-color: var(--navy-blue);
+    color: var(--white);
+}
