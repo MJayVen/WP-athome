@@ -18,13 +18,13 @@
         </div>
 
         <div id="myNavbar" class="navbar-menu" :class="{ 'is-active':isActive }">
-            <div class="navbar-start">
+            <!-- <div class="navbar-start">
                 <div class="navbar-item">
                     <a href="/#" class="button is-success text">
                         Add a workout +
                     </a>
                 </div>
-            </div>
+            </div> -->
 
             <div class="navbar-end">
                 <div class="navbar-item has-dropdown is-hoverable">

@@ -1,7 +1,7 @@
 <template>
     <div class="block is-flex is-justify-content-space-between">
         <a class="workoutButton">10/12/2022 - 6 exercises</a>
-        <div class="buttons">
+        <div class="buttons is-flex is-flex-direction-row">
             <a href="#" class="button is-primary">Edit</a>
             <a href="#" class="button is-danger">Delete</a>
       </div>
@@ -11,7 +11,7 @@
 <style scoped>
     .block{
         border-top: 1px solid var(--white);
-        height: 5rem;
+        min-height: 5rem;
         margin: 0 !important;
     }
     .workoutButton {
