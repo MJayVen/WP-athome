@@ -1,7 +1,9 @@
+<!-- TODO: should take in a userid and lists their workouts. this allows user to look at friend's previous workouts -->
+
 <script setup lang="ts">
 import WorkoutRecord from './WorkoutRecord.vue';
 </script>
-
+<!-- the box containing the list of previous workouts -->
 <template>
     <div class="container is-flex is-flex-direction-row is-flex-wrap-wrap-reverse is-justify-content-center">
         <div id="workoutList" class="box">
