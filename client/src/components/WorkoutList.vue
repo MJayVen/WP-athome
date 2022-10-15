@@ -8,7 +8,8 @@ import { useWorkoutsStore } from "../stores/workouts";
 export default {
   data() {
     return {
-      workouts: useWorkoutsStore().workouts,
+      // ! = not null operator
+      workouts: JSON.parse(localStorage.getItem("workouts")!),
     };
   },
   components: {
@@ -18,7 +19,6 @@ export default {
     // Deletes workout from list
     deleteWorkout(id: number) {
       useWorkoutsStore().deleteWorkout(id);
-      this.workouts = useWorkoutsStore().workouts;
     },
   },
 };
