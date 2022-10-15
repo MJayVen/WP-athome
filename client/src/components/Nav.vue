@@ -1,28 +1,38 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import LoginBadge from './LoginBadge.vue';
+import { ref } from "vue";
+import LoginBadge from "./LoginBadge.vue";
 let isActive = ref(false); // reactive variable for hamburger menu
 </script>
 
 <!-- Navbar to be used across whole site -->
 <template>
-    <nav class="navbar is-dark has-text-weight-light mb-5" role="navigation" aria-label="main navigation">
-        <div class="container">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="/">
-                    <img src="../assets/logo.png">
-                </a>
+  <nav
+    class="navbar is-dark has-text-weight-light mb-5"
+    role="navigation"
+    aria-label="main navigation"
+  >
+    <div class="container">
+      <div class="navbar-brand">
+        <RouterLink class="navbar-item" to="/">
+          <img src="../assets/logo.png" />
+        </RouterLink>
 
-                <a :class="{ 'is-active':isActive }" @click="isActive = !isActive" role="button" class="navbar-burger"
-                    aria-label="menu" aria-expanded="false">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
+        <a
+          :class="{ 'is-active': isActive }"
+          @click="isActive = !isActive"
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
 
-            <div id="myNavbar" class="navbar-menu" :class="{ 'is-active':isActive }">
-               <!-- <div class="navbar-start">
+      <div id="myNavbar" class="navbar-menu" :class="{ 'is-active': isActive }">
+        <!-- <div class="navbar-start">
                         <div class="navbar-item">
                             <a href="/#" class="button is-success text">
                                 Add a workout +
@@ -30,12 +40,10 @@ let isActive = ref(false); // reactive variable for hamburger menu
                         </div>
                     </div> -->
 
-                <div class="navbar-end">
-                    <!-- <div class="navbar-item"> -->
-                        <LoginBadge />
-                    <!-- </div> -->
-                </div>
-            </div>
+        <div class="navbar-end">
+          <LoginBadge />
         </div>
-    </nav>
+      </div>
+    </div>
+  </nav>
 </template>
