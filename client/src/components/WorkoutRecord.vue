@@ -8,7 +8,7 @@ export default {
   props: ["workout"],
   methods: {
     deleteWorkout() {
-      this.$emit("delete", this); // emit id of workout to be deleted
+      this.$emit("delete", this.workout); // emit id of workout to be deleted
       this.isActive = false; // stop rendering component
     },
   },

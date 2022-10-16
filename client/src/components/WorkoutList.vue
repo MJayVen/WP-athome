@@ -1,65 +1,12 @@
 <!-- TODO: should take in a userid and lists their workouts. this allows user to look at friend's previous workouts -->
 
 <script setup lang="ts">
-import { computed } from "@vue/reactivity";
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import WorkoutRecord from "./WorkoutRecord.vue";
+import session, { addWorkout, deleteWorkout, getNewId } from "../stores/session";
 
-interface workout {
-  id: number;
-  date: string;
-  exercises: [
-    {
-      id: number;
-      name: string;
-      sets: [
-        {
-          id: number;
-          reps: number;
-          weight: number;
-        }
-      ];
-    }
-  ];
-}
+const workoutDate = ref("2022-01-01");
 
-const workouts = ref([] as workout[]);
-
-localStorage.setItem("workouts", JSON.stringify(workouts.value));
-
-watch(workouts.value as workout[], () => {
-  localStorage.setItem("workouts", JSON.stringify(workouts.value));
-}, { deep: true }), { deep: true };
-  
-
-const workoutDate = ref("");
-
-const addWorkout = () => {
-  workouts.value.push({
-    id: workouts.value.length + 1,
-    date: workoutDate.value,
-    exercises: [
-      {
-        id: 1,
-        name: "Squat",
-        sets: [
-          {
-            id: 1,
-            reps: 5,
-            weight: 135,
-          },
-        ],
-      },
-    ],
-  });
-  // workoutDate.value = "";
-};
-
-
-// DELETE NOT WORKING FOR NOW :(
-// const deleteWorkout = (workout: workout) => {
-//   workouts.value = workouts.value.filter(w => w.id !== workout.id);
-// };
 
 </script>
 
@@ -72,7 +19,7 @@ const addWorkout = () => {
       <div class="content is-flex is-flex-direction-column">
         <h3 class="has-text-white">date1-date2</h3>
       </div>
-      <form @submit.prevent="addWorkout">
+      <form @submit.prevent="addWorkout(workoutDate)">
         <div class="field">
           <label class="label has-text-white">Date</label>
           <div class="control">
@@ -88,9 +35,10 @@ const addWorkout = () => {
       </form>
       <ul>
         <WorkoutRecord
-          v-for="workout in workouts"
+          v-for="workout in session.workouts"
           :workout="workout"
           :key="workout.id"
+          @delete="deleteWorkout"
         />
       </ul>
 
@@ -106,7 +54,7 @@ const addWorkout = () => {
         <input type="date" class="input" />
       </div>
       <!-- Pass new workout id to new workout -->
-      <RouterLink :to="{ name: 'workout', params: { id: (workouts.length + 1) } }" class="button is-success">
+      <RouterLink :to="{ name: 'workout', params: { id: (getNewId()) } }" class="button is-success">
         Add a workout +
       </RouterLink>
       <a class="button is-warning">View Analytics</a>
