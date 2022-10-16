@@ -5,29 +5,32 @@ import { computed } from "@vue/reactivity";
 import { ref, watch } from "vue";
 import WorkoutRecord from "./WorkoutRecord.vue";
 
-const workouts = ref([{
-    id: 1,
-    date: "2021-01-01",
-    exercises: [
-      {
-        id: 1,
-        name: "Exercise 1",
-        sets: [
-          {
-            id: 1,
-            reps: 10,
-            weight: 100,
-          },
-        ],
-      },
-    ],
-  }
-]);
+interface workout {
+  id: number;
+  date: string;
+  exercises: [
+    {
+      id: number;
+      name: string;
+      sets: [
+        {
+          id: number;
+          reps: number;
+          weight: number;
+        }
+      ];
+    }
+  ];
+}
+
+const workouts = ref([] as workout[]);
+
 localStorage.setItem("workouts", JSON.stringify(workouts.value));
 
-watch(workouts.value, (newVal) => {
-  localStorage.workouts = JSON.stringify(newVal);
-}), { deep: true };
+watch(workouts.value as workout[], () => {
+  localStorage.setItem("workouts", JSON.stringify(workouts.value));
+}, { deep: true }), { deep: true };
+  
 
 const workoutDate = ref("");
 
@@ -35,16 +38,28 @@ const addWorkout = () => {
   workouts.value.push({
     id: workouts.value.length + 1,
     date: workoutDate.value,
-    exercises: [],
+    exercises: [
+      {
+        id: 1,
+        name: "Squat",
+        sets: [
+          {
+            id: 1,
+            reps: 5,
+            weight: 135,
+          },
+        ],
+      },
+    ],
   });
-  console.log(workouts.value);
-  workoutDate.value = "";
-  console.log("workout added")
+  // workoutDate.value = "";
 };
 
-// const workoutlist = computed(() => {
-//   return workouts.value;
-// });
+
+// DELETE NOT WORKING FOR NOW :(
+// const deleteWorkout = (workout: workout) => {
+//   workouts.value = workouts.value.filter(w => w.id !== workout.id);
+// };
 
 </script>
 
@@ -69,19 +84,16 @@ const addWorkout = () => {
             />
           </div>
         </div>
-        <input type="submit" value="Add workout" class="button is-link"/>
+        <input type="submit" value="Add workout" class="button is-link" />
       </form>
       <ul>
-        <li v-for="workout in workouts">{{workout.date}}</li>
+        <WorkoutRecord
+          v-for="workout in workouts"
+          :workout="workout"
+          :key="workout.id"
+        />
       </ul>
-      <!-- <WorkoutRecord
-        v-if="workouts != null"
-        v-for="workout in workouts"
-        :workoutid="workout.id"
-        :date="workout.date"
-        :exercises="workout.exercises"
-        @delete="deleteWorkout"
-      /> -->
+
       <!-- <h3 class="title" v-else>Click "Add a workout"</h3> -->
     </div>
     <div
@@ -93,8 +105,8 @@ const addWorkout = () => {
         <input type="date" class="input" />
         <input type="date" class="input" />
       </div>
-
-      <RouterLink to="/workout/1" class="button is-success">
+      <!-- Pass new workout id to new workout -->
+      <RouterLink :to="{ name: 'workout', params: { id: (workouts.length + 1) } }" class="button is-success">
         Add a workout +
       </RouterLink>
       <a class="button is-warning">View Analytics</a>

@@ -1,15 +1,14 @@
 <script lang="ts">
-
 export default {
-  data(){
-    return{
-        isActive: true
-    }    
+  data() {
+    return {
+      isActive: true,
+    };
   },
-  props: ["workoutid", "date", "exercises"],
+  props: ["workout"],
   methods: {
     deleteWorkout() {
-      this.$emit("delete", this.workoutid); // emit id of workout to be deleted
+      this.$emit("delete", this); // emit id of workout to be deleted
       this.isActive = false; // stop rendering component
     },
   },
@@ -17,12 +16,24 @@ export default {
 </script>
 
 <template>
-  <div v-if="isActive" :class="{ 'is-active': isActive }" class="block is-flex is-justify-content-space-between">
-    <RouterLink :to="{ name: 'workout', params: { id: workoutid } }" class="workoutButton">{{ date }} - {{ exercises.length }} exercises. id={{workoutid}}</RouterLink>
-    <div class="buttons is-flex is-flex-direction-row">
-      <a class="button is-danger" @click="deleteWorkout">Delete</a>
+  <li>
+    <div
+      v-if="isActive"
+      :class="{ 'is-active': isActive }"
+      class="block is-flex is-justify-content-space-between"
+    >
+      <RouterLink
+        :to="{ name: 'workout', params: { id: workout.id } }"
+        class="workoutButton"
+        >{{ workout.date }} - {{ workout.exercises.length }} exercises. id={{
+          workout.id
+        }}</RouterLink
+      >
+      <div class="buttons is-flex is-flex-direction-row">
+        <a class="button is-danger" @click="deleteWorkout">Delete</a>
+      </div>
     </div>
-  </div>
+  </li>
 </template>
 
 <style scoped>
