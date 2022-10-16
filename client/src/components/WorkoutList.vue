@@ -54,7 +54,7 @@ const workoutDate = ref("2022-01-01");
         <input type="date" class="input" />
       </div>
       <!-- Pass new workout id to new workout -->
-      <RouterLink :to="{ name: 'workout', params: { id: (getNewId()) } }" class="button is-success">
+      <RouterLink :to="`/workout/${1}`" class="button is-success">
         Add a workout +
       </RouterLink>
       <a class="button is-warning">View Analytics</a>

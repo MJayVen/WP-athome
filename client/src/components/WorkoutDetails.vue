@@ -3,21 +3,23 @@
 import { ref } from 'vue';
 import SetOptions from "./SetOptions.vue";
 import SetRecord from "./SetRecord.vue";
+import session, { getWorkout } from "../stores/session";
 
 export default {
   data() {
     return {
-      workouts: JSON.parse(localStorage.getItem("workouts")!)[this.$route.params.id],
-      isActive: ref(false),
+      curWorkout: getWorkout(this.id),
     }
   },
+  props: ['id'],
   components: {
     SetOptions,
     SetRecord,
   },
+  mounted() {
+    console.log(this.curWorkout);
+  }
 }
-
-
 
 </script>
 
@@ -31,12 +33,12 @@ export default {
         <p class="menu-label">Exercises</p>
         <ul class="menu-list">
           <li>
-            <a :class="{ 'is-active':isActive }" @click="isActive = !isActive">Bench Press - 3 sets</a>
+            <!-- <a :class="{ 'is-active':isActive }" @click="isActive = !isActive">Bench Press - 3 sets</a>
             <ul class="repList" :class="{ 'is-active':isActive }">
               <li :class=" {'is-hidden':!isActive } "><a>5 reps @ 150lbs</a></li>
               <li :class=" {'is-hidden':!isActive } "><a>5 reps @ 150lbs</a></li>
               <li :class=" {'is-hidden':!isActive } "><a>5 reps @ 150lbs</a></li>
-            </ul>
+            </ul> -->
           </li>
           <li><a>Customers</a></li>
         </ul>

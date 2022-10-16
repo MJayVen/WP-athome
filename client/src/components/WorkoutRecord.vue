@@ -23,7 +23,7 @@ export default {
       class="block is-flex is-justify-content-space-between"
     >
       <RouterLink
-        :to="{ name: 'workout', params: { id: workout.id } }"
+        :to="`/workout/${workout.id}`"
         class="workoutButton"
         >{{ workout.date }} - {{ workout.exercises.length }} exercises. id={{
           workout.id

@@ -44,8 +44,12 @@ export function addWorkout(workoutDate: string) {
     console.log(session.workouts);
 }
 
-export function getWorkouts() {
-    return session.workouts;
+export function getWorkout(id: number) {
+    console.log(id);
+    console.log(session.workouts);
+    console.log(session.workouts.find(w => w.id === 1));
+    return session.workouts.find(w => w.id === id);
+    
 }
 
 export function getNewId() {
