@@ -1,10 +1,24 @@
-<script setup lang="ts">
+<script lang="ts">
 
 import { ref } from 'vue';
-import AddSet from "./AddSet.vue";
-// import SetRecord from "./SetRecord.vue";
+import SetOptions from "./SetOptions.vue";
+import SetRecord from "./SetRecord.vue";
 
-let isActive = ref(false);
+export default {
+  data() {
+    return {
+      workouts: JSON.parse(localStorage.getItem("workouts")!)[this.$route.params.id],
+      isActive: ref(false),
+    }
+  },
+  components: {
+    SetOptions,
+    SetRecord,
+  },
+}
+
+
+
 </script>
 
 <template>
@@ -13,7 +27,7 @@ let isActive = ref(false);
   >
     <div class="box">
       <aside class="menu">
-        <h3 class="title">10/14/22 (today)</h3>
+        <h3 class="title">10/14/22 (today) {{ id }}</h3>
         <p class="menu-label">Exercises</p>
         <ul class="menu-list">
           <li>
@@ -28,7 +42,7 @@ let isActive = ref(false);
         </ul>
       </aside>
     </div>
-    <AddSet />
+    <SetOptions />
   </div>
 </template>
 

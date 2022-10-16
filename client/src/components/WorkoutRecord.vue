@@ -1,5 +1,4 @@
 <script lang="ts">
-import { ref } from "vue";
 
 export default {
   data(){
@@ -7,10 +6,10 @@ export default {
         isActive: true
     }    
   },
-  props: ["id", "date", "exercises"],
+  props: ["workoutid", "date", "exercises"],
   methods: {
     deleteWorkout() {
-      this.$emit("delete", this.id); // emit id of workout to be deleted
+      this.$emit("delete", this.workoutid); // emit id of workout to be deleted
       this.isActive = false; // stop rendering component
     },
   },
@@ -19,7 +18,7 @@ export default {
 
 <template>
   <div v-if="isActive" :class="{ 'is-active': isActive }" class="block is-flex is-justify-content-space-between">
-    <a class="workoutButton">{{ date }} - {{ exercises.length }} exercises</a>
+    <RouterLink :to="{ name: 'workout', params: { id: workoutid } }" class="workoutButton">{{ date }} - {{ exercises.length }} exercises. id={{workoutid}}</RouterLink>
     <div class="buttons is-flex is-flex-direction-row">
       <a class="button is-danger" @click="deleteWorkout">Delete</a>
     </div>

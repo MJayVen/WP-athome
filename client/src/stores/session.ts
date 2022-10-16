@@ -1,8 +1,7 @@
 import { reactive } from "vue";
 
-
 const session = reactive({
-    user: null as User | null
+    user: null as User | null,
 });
 
 export function login(firstName: string, lastName: string) {
