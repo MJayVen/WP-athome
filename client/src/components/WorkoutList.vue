@@ -3,7 +3,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import WorkoutRecord from "./WorkoutRecord.vue";
-import session, { addWorkout, deleteWorkout, getNewId } from "../stores/session";
+
+
 
 const workoutDate = ref("2022-01-01");
 
@@ -19,28 +20,14 @@ const workoutDate = ref("2022-01-01");
       <div class="content is-flex is-flex-direction-column">
         <h3 class="has-text-white">date1-date2</h3>
       </div>
-      <form @submit.prevent="addWorkout(workoutDate)">
-        <div class="field">
-          <label class="label has-text-white">Date</label>
-          <div class="control">
-            <input
-              class="input"
-              type="date"
-              placeholder="Date"
-              v-model="workoutDate"
-            />
-          </div>
-        </div>
-        <input type="submit" value="Add workout" class="button is-link" />
-      </form>
-      <ul>
+      <!-- <ul>
         <WorkoutRecord
           v-for="workout in session.workouts"
           :workout="workout"
           :key="workout.id"
           @delete="deleteWorkout"
         />
-      </ul>
+      </ul> -->
 
       <!-- <h3 class="title" v-else>Click "Add a workout"</h3> -->
     </div>
@@ -54,9 +41,9 @@ const workoutDate = ref("2022-01-01");
         <input type="date" class="input" />
       </div>
       <!-- Pass new workout id to new workout -->
-      <RouterLink :to="`/workout/${1}`" class="button is-success">
+      <!-- <RouterLink :to="`/workout/${getNewWorkoutId()}`" class="button is-success">
         Add a workout +
-      </RouterLink>
+      </RouterLink> -->
       <a class="button is-warning">View Analytics</a>
     </div>
   </div>

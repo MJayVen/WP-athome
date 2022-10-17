@@ -1,5 +1,7 @@
 <script lang="ts">
-import WorkoutDetails from '../components/WorkoutDetails.vue'
+import ExerciseList from '../components/ExerciseList.vue'
+
+// Collect workout ID from URL
 
 export default {
     data() {
@@ -11,13 +13,16 @@ export default {
         this.workoutId = this.$route.params.id[0];
     },
     components: {
-        WorkoutDetails,
+        ExerciseList,
     }
 };
+
+// pass workout ID to ExerciseList component
 
 </script>
 <template>
     <main>
-        <WorkoutDetails :id="workoutId"/>
+        
+        <ExerciseList :id="workoutId"/>
     </main>
 </template>

@@ -22,13 +22,9 @@ export default {
       :class="{ 'is-active': isActive }"
       class="block is-flex is-justify-content-space-between"
     >
-      <RouterLink
-        :to="`/workout/${workout.id}`"
-        class="workoutButton"
-        >{{ workout.date }} - {{ workout.exercises.length }} exercises. id={{
-          workout.id
-        }}</RouterLink
-      >
+      <RouterLink :to="`/workout/${workout.id}`" class="workoutButton">
+        {{ workout.date }} - {{ workout.exercises.length }} exercises
+      </RouterLink>
       <div class="buttons is-flex is-flex-direction-row">
         <a class="button is-danger" @click="deleteWorkout">Delete</a>
       </div>
