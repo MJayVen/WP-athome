@@ -1,5 +1,5 @@
-<script lang="ts">
-import ExerciseList from '../components/ExerciseList.vue'
+<!-- <script lang="ts">
+// import ExerciseList from '../components/ExerciseList.vue'
 
 // Collect workout ID from URL
 
@@ -25,4 +25,4 @@ export default {
         
         <ExerciseList :id="workoutId"/>
     </main>
-</template>
+</template> -->

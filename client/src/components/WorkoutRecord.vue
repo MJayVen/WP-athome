@@ -7,10 +7,10 @@ export default {
   },
   props: ["workout"],
   methods: {
-    deleteWorkout() {
-      this.$emit("delete", this.workout); // emit id of workout to be deleted
-      this.isActive = false; // stop rendering component
-    },
+    // deleteWorkout() {
+    //   this.$emit("delete", this.workout); // emit id of workout to be deleted
+    //   this.isActive = false; // stop rendering component
+    // },
   },
 };
 </script>
@@ -22,12 +22,18 @@ export default {
       :class="{ 'is-active': isActive }"
       class="block is-flex is-justify-content-space-between"
     >
-      <RouterLink :to="`/workout/${workout.id}`" class="workoutButton">
+      <a class="workoutButton">
+        <span class="icon is-small">
+          <i class="fas fa-dumbbell"></i>
+        </span>
+        <span>{{ workout.date }}</span>
+      </a>
+      <!-- <RouterLink :to="`/workout/${workout.id}`" class="workoutButton">
         {{ workout.date }} - {{ workout.exercises.length }} exercises
-      </RouterLink>
-      <div class="buttons is-flex is-flex-direction-row">
+      </RouterLink> -->
+      <!-- <div class="buttons is-flex is-flex-direction-row">
         <a class="button is-danger" @click="deleteWorkout">Delete</a>
-      </div>
+      </div> -->
     </div>
   </li>
 </template>
