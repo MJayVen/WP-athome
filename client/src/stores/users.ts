@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'; 
 import { useStorage } from '@vueuse/core';
-import session from './session'
+// import session from './session'
 
-export const useUserStore = defineStore({
+export const useUsersStore = defineStore({
     id: 'users',
     state: () => ({
         users: useStorage('users', [] as User[]),

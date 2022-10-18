@@ -1,9 +1,16 @@
-<script setup lang="ts">
+<script lang="ts">
 import UserRecord from "../components/UserRecord.vue";
-import users, { addUser } from "../stores/users";
+import { useUsersStore } from "../stores/users";
 
-// Data for testing
-addUser("test", "test");
+export default {
+    components: {
+        UserRecord,
+    },
+    setup() {
+        const users = useUsersStore();
+        return { users };
+    },
+}
 
 
 </script>
@@ -12,7 +19,7 @@ addUser("test", "test");
   <main>
     <div class="container is-flex is-flex-direction-column">
       <h1 class="title">User Management</h1>
-      <UserRecord v-for="user in users" :user="user" />
+      <UserRecord v-for="user in users.getAllUsers" :user="user" />
     </div>
   </main>
 </template>
