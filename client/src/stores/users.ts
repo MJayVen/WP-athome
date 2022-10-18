@@ -1,7 +1,69 @@
-import { ref, watch } from 'vue'
+import { defineStore } from 'pinia'; 
+import { useStorage } from '@vueuse/core';
 import session from './session'
 
-let users = ref([] as User[])
+export const useUserStore = defineStore({
+    id: 'users',
+    state: () => ({
+        users: useStorage('users', [] as User[]),
+    }),
+    getters: {
+        getAllUsers(): User[] {
+            return this.users
+        },
+    },
+    actions: {
+        addUser(username: string, password: string) {
+            this.users.push(
+                {
+                    username,
+                    password,
+                }
+            )
+            console.log("added user" + username)
+        },
+        newWorkoutId(username: string) {
+            const user = this.users.find((user) => user.username === username)
+            if (user) {
+                // return new id
+                return (user.workouts?.length || 0)+1
+            }
+            console.log('user' + username + 'not found - newWorkoutId')
+        },
+        addWorkout(username: string, workout: Workout) {
+            const user = this.users.find((user) => user.username === username)
+            if (user) {
+                user.workouts?.push(workout);
+                console.log("added workout " + workout.id + " to user " + username)
+            }
+            console.log('user' + username + 'not found - addWorkout')
+        },
+        deleteWorkout(username: string, id: number) {
+            const user = this.users.find((user) => user.username === username);
+            if (user) {
+                // find workout
+                const workout = user.workouts?.find((workout) => workout.id === id);
+                // workout exists?
+                if (workout) {
+                    // delete workout
+                    user.workouts?.splice(user.workouts.indexOf(workout), 1);
+                    console.log("deleted workout " + id)
+                }
+            }
+            console.log('user' + username + 'not found - deleteWorkout')
+        },
+        getAllWorkouts(username: string): Workout[] {
+            const user = this.users.find((user) => user.username === username);
+            if (user) {
+                return user.workouts || []
+            }
+            console.log('user' + username + 'not found - getAllWorkouts')
+            return []
+        }
+    }
+    
+});
+
 
 export class User {
     public username?: string;
@@ -15,64 +77,3 @@ export class Workout {
     public details?: string;
     public date?: string;
 }
-
-export function addUser(username: string, password: string) {
-    users.value.push(
-        {
-            username,
-            password,
-        }
-    )
-    console.log("added user" + username)
-}
-
-export function newWorkoutId(username: string) {
-    const user = users.value.find((user) => user.username === username)
-    if (user) {
-        // return new id
-        return (user.workouts?.length || 0)+1
-    }
-}
-
-export function addWorkout(username: string, workout: Workout) {
-    const user = users.value.find((user) => user.username === username)
-    if (user) {
-        console.log("adding workout...")
-        user.workouts?.push(workout);
-    }
-}
-
-export function deleteWorkout(username: string, id: number) {
-    const user = users.value.find((user) => user.username === username);
-    if (user) {
-        // find workout
-        const workout = user.workouts?.find((workout) => workout.id === id);
-        // workout exists?
-        if (workout) {
-            // delete workout
-            user.workouts?.splice(user.workouts.indexOf(workout), 1);
-            console.log("deleted workout " + id)
-        }
-    }
-}
-
-export function getAllWorkouts(username: string) {
-    const user = users.value.find((user) => user.username === username);
-    if(user){
-        return user.workouts;
-    }
-}
-
-export default users;
-
-
-
-// entering values for testing
-
-addUser("a", "a")
-
-
-
-watch(users, (newUsers) => {
-    localStorage.setItem("users", JSON.stringify(newUsers))
-}, { deep: true })
