@@ -7,6 +7,7 @@ export class User {
     public username?: string;
     public password?: string;
     public workouts?: Workout[];
+    public following?: User[];
 }
 
 export class Workout {
@@ -70,9 +71,3 @@ export default users;
 // entering values for testing
 
 addUser("a", "a")
-
-
-
-watch(users, (newUsers) => {
-    localStorage.setItem("users", JSON.stringify(newUsers))
-}, { deep: true })
