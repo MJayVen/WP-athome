@@ -1,70 +1,43 @@
-// import { reactive } from "vue";
-// import { useUsersStore } from "./users"; 
+import { defineStore } from 'pinia'; 
+import { useStorage } from "@vueuse/core";
+import { User, useUsersStore } from "../stores/users";
 
-// const session = reactive({
-//     user: null as User | null,
-// });
-
-// // login user
-// export function login(username: string, password: string) {
-//     // find user
-//     const user = users.value.find((user) => user.username === username);
-//     // see if user exists
-//     if (user) {
-//         addWorkout(user.username as string, { id: 1, name: "test", details: "test", date: "test" });
-//         addWorkout(user.username as string, { id: 2, name: "test", details: "test", date: "test" });
-    
-//         // check password
-//         if (user.password === password) {
-//             // set session user
-//             session.user = user;
-//             console.log("logged in user " + username);
-//             console.log(user.workouts)
-//         }
-//     } else {
-//         // throw error
-//         throw new Error("Invalid username or password");
-//     }
-// }
-
-// export function register(username: string, password: string) {
-//     // see if username exists
-//     if (users.value.find((user) => user.username === username)) {
-//         // throw error
-//         throw new Error("Username already exists");
-//     } else {
-//         // add user
-//         console.log("registering user...")
-//         addUser(username, password);
-//     }
-// }
-
-// // logout user
-// export function logout() {
-//     session.user = null;
-//     console.log("logged out")
-// }
-
-
-// export function addSessionWorkout(workout: Workout) {
-//     // check if user is logged in
-//     if (session.user) {
-//         // add workout
-//         addWorkout(session.user.username as string, workout)
-//     } else {
-//         // throw error
-//         throw new Error("User not logged in");
-//     }
-// }
-
-// export function getAllSessionWorkouts() {
-//     // check if user is logged in
-//     if (session.user) {
-//         return getAllWorkouts(session.user.username as string);
-//     } else {
-//         // throw error
-//         throw new Error("User not logged in");
-//     }
-// }
-
-// export default session;
+export const useSessionStore = defineStore({
+    id: 'session',
+    state: () => ({
+        user: useStorage('user', {} as User | null),
+    }),
+    getters: {
+        getUser(): User | null {
+            return this.user;
+        },
+        isLoggedIn(): boolean {
+            return this.user !== null;
+        }
+    },
+    actions: {
+        login(username: string, password: string) {
+            const users = useUsersStore();
+            // find user
+            const user = users.getAllUsers.find((user) => user.username === username);
+            // see if user exists
+            if (user) {
+                // check password
+                if (user.password === password) {
+                    // set session user
+                    this.user = user;
+                    console.log("logged in user " + username);
+                } else {
+                    console.log("wrong password");
+                }
+            } else {
+                // throw error
+                throw new Error("username does not exist");
+            }
+        },
+        logout() {
+            this.user = null;
+            console.log("logged out");
+        }
+    }
+});

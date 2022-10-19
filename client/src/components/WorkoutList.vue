@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import WorkoutRecord from "./WorkoutRecord.vue";
-import session, {getAllSessionWorkouts} from "../stores/session";
+import { useUsersStore, type User } from "../stores/users";
+import { useSessionStore } from "../stores/session"
 
-if (session.user){
-  console.log("workouts for user " + session.user.username + " = " + session.user.workouts)
-}
-
-const workouts=getAllSessionWorkouts() || [];
+const users = useUsersStore();
+const session = useSessionStore();
+const workouts = (session.user || [] as User).workouts
 
 </script>
 
@@ -14,7 +13,7 @@ const workouts=getAllSessionWorkouts() || [];
 <template>
   <div v-if="session.user" class="container is-flex is-flex-direction-row is-flex-wrap-wrap-reverse is-justify-content-center">
     <div id="workoutList" class="box">
-      <div v-if="workouts.length > 0" class="content is-flex is-flex-direction-column">
+      <div v-if="(session.user.workouts || []).length > 0" class="content is-flex is-flex-direction-column">
         <h3 class="has-text-white">List of previous workouts:</h3>
         <WorkoutRecord v-for="workout in workouts" :workout="workout"/>
       </div>
@@ -25,9 +24,9 @@ const workouts=getAllSessionWorkouts() || [];
       class="block is-flex is-flex-direction-column is-flex-align-content-center"
     >
       <!-- Pass new workout id to new workout -->
-      <!-- <RouterLink :to="`/workout/${newWorkoutId()}`" class="button is-success">
+      <RouterLink :to="`/workout/${users.newWorkoutId(session.user.username as string)}`" class="button is-success">
         Add a workout +
-      </RouterLink> -->
+      </RouterLink>
       <a class="button is-warning">View Analytics</a>
     </div>
   </div>
