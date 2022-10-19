@@ -14,11 +14,16 @@ export const useUsersStore = defineStore({
     },
     actions: {
         addUser(username: string, password: string) {
+            const workouts = [] as Workout[];
+            const following = [] as User[];
+
             this.users.push(
                 {
                     username,
                     password,
-                }
+                    workouts,
+                    following,
+                } 
             )
             console.log("added user" + username)
         },
@@ -28,15 +33,17 @@ export const useUsersStore = defineStore({
                 // return new id
                 return (user.workouts?.length || 0)+1
             }
-            console.log('user' + username + 'not found - newWorkoutId')
+            console.log('user ' + username + ' not found - newWorkoutId')
         },
         addWorkout(username: string, workout: Workout) {
             const user = this.users.find((user) => user.username === username)
             if (user) {
                 user.workouts?.push(workout);
                 console.log("added workout " + workout.id + " to user " + username)
+            } else {
+                console.log('user ' + username + ' not found - addWorkout')
+
             }
-            console.log('user' + username + 'not found - addWorkout')
         },
         deleteWorkout(username: string, id: number) {
             const user = this.users.find((user) => user.username === username);
@@ -49,15 +56,16 @@ export const useUsersStore = defineStore({
                     user.workouts?.splice(user.workouts.indexOf(workout), 1);
                     console.log("deleted workout " + id)
                 }
+            } else {
+                console.log('user ' + username + ' not found - deleteWorkout')
             }
-            console.log('user' + username + 'not found - deleteWorkout')
         },
         getAllWorkouts(username: string): Workout[] {
             const user = this.users.find((user) => user.username === username);
             if (user) {
                 return user.workouts || []
             }
-            console.log('user' + username + 'not found - getAllWorkouts')
+            console.log('user ' + username + ' not found - getAllWorkouts')
             return []
         }
     }

@@ -1,5 +1,5 @@
-<!-- <script lang="ts">
-// import ExerciseList from '../components/ExerciseList.vue'
+<script lang="ts">
+import AddWorkout from "../components/AddWorkout.vue";
 
 // Collect workout ID from URL
 
@@ -13,7 +13,7 @@ export default {
         this.workoutId = this.$route.params.id[0];
     },
     components: {
-        ExerciseList,
+        AddWorkout,
     }
 };
 
@@ -23,6 +23,6 @@ export default {
 <template>
     <main>
         
-        <ExerciseList :id="workoutId"/>
+        <AddWorkout :id="workoutId"/>
     </main>
-</template> -->
+</template>

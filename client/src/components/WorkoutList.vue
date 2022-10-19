@@ -7,6 +7,10 @@ const users = useUsersStore();
 const session = useSessionStore();
 const workouts = (session.user || [] as User).workouts
 
+useUsersStore().addWorkout('a', {id:1, name:"test", details:"test", date:'test'})
+
+console.log(workouts);
+
 </script>
 
 <!-- the box containing the list of previous workouts -->
