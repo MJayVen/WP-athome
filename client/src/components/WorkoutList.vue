@@ -1,25 +1,49 @@
-<script setup lang="ts">
+<script lang="ts">
 import WorkoutRecord from "./WorkoutRecord.vue";
 import { useUsersStore, type User } from "../stores/users";
-import { useSessionStore } from "../stores/session"
+import { useSessionStore } from "../stores/session";
 
-const users = useUsersStore();
-const session = useSessionStore();
-const workouts = (session.user || [] as User).workouts
-
-useUsersStore().addWorkout('a', {id:1, name:"test", details:"test", date:'test'})
-
-console.log(workouts);
-
+export default {
+  components: {
+    WorkoutRecord,
+  },
+  data() {
+    const session = useSessionStore();
+    const userStore = useUsersStore();
+    return {
+      userStore: userStore,
+      curUser: userStore.getUser(session.user?.username as string),
+    };
+  },
+  methods: {
+    deleteWorkout(id: number) {
+      // remove workout from workouts array
+      this.userStore.deleteWorkout(this.curUser?.username as string, id);
+    },
+  },
+  mounted() {
+    console.log(this.curUser?.workouts);
+  },
+};
 </script>
 
 <!-- the box containing the list of previous workouts -->
 <template>
-  <div v-if="session.user" class="container is-flex is-flex-direction-row is-flex-wrap-wrap-reverse is-justify-content-center">
+  <div
+    v-if="curUser"
+    class="container is-flex is-flex-direction-row is-flex-wrap-wrap-reverse is-justify-content-center"
+  >
     <div id="workoutList" class="box">
-      <div v-if="(session.user.workouts || []).length > 0" class="content is-flex is-flex-direction-column">
+      <div
+        v-if="(curUser.workouts || []).length > 0"
+        class="content is-flex is-flex-direction-column"
+      >
         <h3 class="has-text-white">List of previous workouts:</h3>
-        <WorkoutRecord v-for="workout in workouts" :workout="workout"/>
+        <WorkoutRecord
+          v-for="workout in curUser.workouts"
+          :workout="workout"
+          @delete="deleteWorkout"
+        />
       </div>
       <h3 class="title" v-else>Click "Add a workout"</h3>
     </div>
@@ -28,7 +52,10 @@ console.log(workouts);
       class="block is-flex is-flex-direction-column is-flex-align-content-center"
     >
       <!-- Pass new workout id to new workout -->
-      <RouterLink :to="`/workout/${users.newWorkoutId(session.user.username as string)}`" class="button is-success">
+      <RouterLink
+        :to="`/workout/${userStore.newWorkoutId(curUser.username as string)}`"
+        class="button is-success"
+      >
         Add a workout +
       </RouterLink>
       <a class="button is-warning">View Analytics</a>

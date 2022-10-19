@@ -12,12 +12,12 @@ export default {
             name: ref(''),
             details: ref(''),
             date: ref(''),
+            curUser: useSessionStore().getUsername,
         }
     }, methods: {
         submit() {
-            const user = useSessionStore().getUser;
-            if(user && user.username != undefined){
-                useUsersStore().addWorkout(user.username, {id:this.id, name:this.name, details: this.details, date: this.date})
+            if(this.curUser){
+                useUsersStore().addWorkout(this.curUser, {id:this.id, name:this.name, details: this.details, date: this.date})
                 router.push('/');
             }
         },

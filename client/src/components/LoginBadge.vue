@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import {useSessionStore} from "../stores/session";
 const session = useSessionStore();
-console.log("current user = " + (session.user || ""))
+console.log("current user = " + session.user?.username);
 
 </script>
 
 <!-- Component which holds buttons allowing user to login/sign in.
      Shows user dropdown menu when logged in -->
 <template>
-  <div class="buttons" v-if="!session.user">
+  <div class="buttons" v-if="!session.getUsername">
     <RouterLink to="/login" class="button is-dark"> Log in </RouterLink>
     <RouterLink to="/register" class="button is-light"> Sign up </RouterLink>
   </div>
@@ -18,7 +18,7 @@ console.log("current user = " + (session.user || ""))
     </div>
     <div class="navbar-item has-dropdown is-hoverable">
       <a class="navbar-link">
-        {{ session.user.username }}
+        {{ session.getUsername }}
       </a>
       <div class="navbar-dropdown">
         <a class="navbar-item" href="#"> Profile </a>

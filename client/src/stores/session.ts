@@ -1,15 +1,15 @@
 import { defineStore } from 'pinia'; 
 import { useStorage } from "@vueuse/core";
-import { User, useUsersStore } from "../stores/users";
+import { useUsersStore } from "../stores/users";
 
 export const useSessionStore = defineStore({
     id: 'session',
     state: () => ({
-        user: useStorage('user', {} as User | null),
+        user: useStorage('user', {username: '', password: ''}),
     }),
     getters: {
-        getUser(): User | null {
-            return this.user;
+        getUsername(): string | null {
+            return this.user.username;
         },
         isLoggedIn(): boolean {
             return this.user !== null;
@@ -25,7 +25,8 @@ export const useSessionStore = defineStore({
                 // check password
                 if (user.password === password) {
                     // set session user
-                    this.user = user;
+                    this.user.username = username;
+                    this.user.password = password;
                     console.log("logged in user " + username);
                 } else {
                     console.log("wrong password");
@@ -36,7 +37,8 @@ export const useSessionStore = defineStore({
             }
         },
         logout() {
-            this.user = null;
+            this.user.username = '';
+            this.user.password = '';
             console.log("logged out");
         }
     }

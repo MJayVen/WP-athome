@@ -15,7 +15,7 @@ export const useUsersStore = defineStore({
     actions: {
         addUser(username: string, password: string) {
             const workouts = [] as Workout[];
-            const following = [] as User[];
+            const following = [] as string[];
 
             this.users.push(
                 {
@@ -26,6 +26,9 @@ export const useUsersStore = defineStore({
                 } 
             )
             console.log("added user" + username)
+        },
+        getUser(username: string): User | undefined {
+            return this.users.find((user) => user.username === username);
         },
         newWorkoutId(username: string) {
             const user = this.users.find((user) => user.username === username)
@@ -67,7 +70,18 @@ export const useUsersStore = defineStore({
             }
             console.log('user ' + username + ' not found - getAllWorkouts')
             return []
-        }
+        },
+        addFollow(follower: string, followee: string) {
+            const user = this.users.find((user) => user.username === follower);
+            if(user) {
+                user.following?.push(followee);
+            } else {
+                console.log("user " + follower + " not found")
+            }
+        },
+        getAllFollowers(username: string) {
+            return this.users.find((user) => user.username === username)?.following
+        },
     }
     
 });
@@ -77,7 +91,8 @@ export class User {
     public username?: string;
     public password?: string;
     public workouts?: Workout[];
-    public following?: User[];
+    public following?: string[];
+    public loggedIn?: boolean;
 }
 
 export class Workout {

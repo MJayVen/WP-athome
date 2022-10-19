@@ -1,44 +1,40 @@
 <script lang="ts">
+import { useSessionStore } from "@/stores/session";
+
 export default {
   data() {
     return {
       isActive: true,
+      session: useSessionStore(),
     };
   },
   props: ["workout"],
-  methods: {
-    // deleteWorkout() {
-    //   this.$emit("delete", this.workout); // emit id of workout to be deleted
-    //   this.isActive = false; // stop rendering component
-    // },
-  },
+  // methods: {
+  //   delete() {
+      
+  //     // this.$emit('delete');
+  //   },
+  // }
 };
 </script>
 
 <template>
   <li>
-    <div
-      v-if="isActive"
-      :class="{ 'is-active': isActive }"
-      class="block is-flex is-justify-content-space-between"
-    >
-      <a class="workoutButton">
-        <span class="icon is-small">
-          <i class="fas fa-dumbbell"></i>
-        </span>
-        <span>{{ workout.date }}</span>
-      </a>
-      <!-- <RouterLink :to="`/workout/${workout.id}`" class="workoutButton">
-        {{ workout.date }} - {{ workout.exercises.length }} exercises
-      </RouterLink> -->
-      <!-- <div class="buttons is-flex is-flex-direction-row">
-        <a class="button is-danger" @click="deleteWorkout">Delete</a>
-      </div> -->
+    <div class="block is-flex is-justify-content-space-between">
+      <RouterLink :to="`/workout/${workout.id}`" class="workoutButton">
+        <i>{{ workout.date }}</i> - {{ workout.name }} - {{ workout.details }}
+      </RouterLink>
+      <div class="buttons is-flex is-flex-direction-row">
+        <button class="button is-danger" @click="$emit('delete', workout.id)">Delete</button>
+      </div>
     </div>
   </li>
 </template>
 
 <style scoped>
+li {
+  list-style: none;
+}
 .block {
   border-top: 1px solid var(--white);
   min-height: 5rem;
