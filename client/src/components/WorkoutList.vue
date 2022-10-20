@@ -30,17 +30,16 @@ export default {
 <!-- the box containing the list of previous workouts -->
 <template>
   <div
-    v-if="curUser"
     class="container is-flex is-flex-direction-row is-flex-wrap-wrap-reverse is-justify-content-center"
   >
     <div id="workoutList" class="box">
       <div
-        v-if="(curUser.workouts || []).length > 0"
+        v-if="(curUser!.workouts || []).length > 0"
         class="content is-flex is-flex-direction-column"
       >
         <h3 class="has-text-white">List of previous workouts:</h3>
         <WorkoutRecord
-          v-for="workout in curUser.workouts"
+          v-for="workout in curUser!.workouts"
           :workout="workout"
           @delete="deleteWorkout"
         />
@@ -53,16 +52,13 @@ export default {
     >
       <!-- Pass new workout id to new workout -->
       <RouterLink
-        :to="`/workout/${userStore.newWorkoutId(curUser.username as string)}`"
+        :to="`/workout/${userStore.newWorkoutId(curUser!.username as string)}`"
         class="button is-success"
       >
         Add a workout +
       </RouterLink>
       <a class="button is-warning">View Analytics</a>
     </div>
-  </div>
-  <div v-else class="container">
-    <h3 class="title">Please Login</h3>
   </div>
 </template>
 

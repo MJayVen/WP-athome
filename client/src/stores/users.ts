@@ -27,6 +27,14 @@ export const useUsersStore = defineStore({
             )
             console.log("added user" + username)
         },
+        deleteUser(username: string) {
+            const user = this.users.find((user) => user.username === username);
+            if(user){
+                this.users.splice(this.users.indexOf(user), 1);
+            } else {
+                console.log('user ' + username + ' not found - deleteUser')
+            }
+        },
         getUser(username: string): User | undefined {
             return this.users.find((user) => user.username === username);
         },
@@ -57,7 +65,7 @@ export const useUsersStore = defineStore({
                 if (workout) {
                     // delete workout
                     user.workouts?.splice(user.workouts.indexOf(workout), 1);
-                    console.log("deleted workout " + id)
+                    console.log("deleted workout " + id + " - deleteWorkout")
                 }
             } else {
                 console.log('user ' + username + ' not found - deleteWorkout')
@@ -74,9 +82,27 @@ export const useUsersStore = defineStore({
         addFollow(follower: string, followee: string) {
             const user = this.users.find((user) => user.username === follower);
             if(user) {
-                user.following?.push(followee);
+                // as long as user not already in follow list
+                if(!user.following?.includes(followee)){
+                    user.following?.push(followee);
+                    console.log("followed " + followee);
+                } else {
+                    console.log("already following " + followee)
+                }                
             } else {
-                console.log("user " + follower + " not found")
+                console.log("user " + follower + " not found - addFollow")
+            }
+        },
+        deleteFollow(follower: string, followee: string) {
+            const user = this.users.find((user) => user.username === follower);
+            if(user) {
+                const follow = user.following?.find((follow) => follow === followee);
+                if (follow) {
+                    user.following?.splice(user.following.indexOf(follow), 1);
+                    console.log("unfollowed " + followee);
+                }
+            } else {
+                console.log("user " + follower + " not found - deleteFollow")
             }
         },
         getAllFollowers(username: string) {

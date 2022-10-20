@@ -6,13 +6,14 @@ export const useSessionStore = defineStore({
     id: 'session',
     state: () => ({
         user: useStorage('user', {username: '', password: ''}),
+        loggedIn: useStorage('loggedIn', false),
     }),
     getters: {
         getUsername(): string | null {
             return this.user.username;
         },
         isLoggedIn(): boolean {
-            return this.user !== null;
+            return this.loggedIn;
         }
     },
     actions: {
@@ -27,6 +28,7 @@ export const useSessionStore = defineStore({
                     // set session user
                     this.user.username = username;
                     this.user.password = password;
+                    this.loggedIn = true;
                     console.log("logged in user " + username);
                 } else {
                     console.log("wrong password");
@@ -39,6 +41,7 @@ export const useSessionStore = defineStore({
         logout() {
             this.user.username = '';
             this.user.password = '';
+            this.loggedIn = false;
             console.log("logged out");
         }
     }
