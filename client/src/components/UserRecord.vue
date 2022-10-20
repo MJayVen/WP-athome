@@ -6,7 +6,7 @@ import { ref } from 'vue';
 export default {
     data() {
         const userStore = useUsersStore();
-        return{
+        return {
             userStore: userStore,
             curUser: useSessionStore().getUsername,
             isFollowing: ref(false),
@@ -19,15 +19,19 @@ export default {
     },
     methods: {
         follow() {
-            // add user to logged-in user's following list
-            this.userStore.addFollow(this.curUser as string, this.user.username);
+            if (!this.curUser == this.user.username) {
+                // add user to logged-in user's following list
+                this.userStore.addFollow(this.curUser as string, this.user.username);
+            } else {
+                console.log("cant follow yourself, dingus");
+            }
         },
         unfollow() {
             // remove user from logged-in user's following list
             this.userStore.deleteFollow(this.curUser as string, this.user.username);
         },
         deleteUser() {
-            if (this.user.username != this.curUser){
+            if (this.user.username != this.curUser) {
                 this.userStore.deleteUser(this.user.username);
             } else {
                 console.log("cant delete yourself, ya silly goof")
@@ -42,26 +46,34 @@ export default {
     <div class="block">
         <h1 class="title">@{{ user.username }} - {{ (user.workouts||[]).length }} workouts</h1>
         <div class="buttons is-flex is-justify-content-space-around is-flex-wrap-nowrap">
-            <button class="button is-danger" @click="deleteUser">Delete User</button>
-            <!-- Not-following -->
-            <button v-if="!isFollowing" class="button is-warning" @click="isFollowing = !isFollowing; follow()"> Follow </button>
-            <!-- Following -->
-            <button v-else class="button" @click="isFollowing = !isFollowing; unfollow();"> Followed! </button>
+            <div v-if="user.username == curUser">
+                <!-- Already logged in as user -->
+                <button class="button is-success">You!</button>
+            </div>
+            <div v-else>
+                <button class="button is-danger" @click="deleteUser">Delete User</button>
+                <!-- Not-following -->
+                <button v-if="!isFollowing" class="button is-warning"
+                    @click="isFollowing = !isFollowing; follow()">
+                    Follow </button>
+                <!-- Following -->
+                <button v-else class="button" @click="isFollowing = !isFollowing; unfollow();"> Following </button>
+            </div>
+
         </div>
-        
+
     </div>
 </template>
 
 <style scoped>
-
 .block {
     border: 1px solid var(--white);
     border-radius: 5px;
     padding: 10px;
-    /* width: 400px; */
+    width: 600px;
 }
 
-h1 { 
+h1 {
     text-decoration: underline;
     font-weight: bold;
     color: var(--white);
@@ -70,5 +82,4 @@ h1 {
 .button {
     width: 100px
 }
-
 </style>

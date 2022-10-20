@@ -6,11 +6,8 @@ import AddWorkout from "../components/AddWorkout.vue";
 export default {
     data() {
         return {
-            workoutId: '',
+            workoutId: this.$route.params.id[0],
         };
-    },
-    created() {
-        this.workoutId = this.$route.params.id[0];
     },
     components: {
         AddWorkout,
