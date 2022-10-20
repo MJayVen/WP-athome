@@ -40,15 +40,35 @@ export default {
 
 <template>
     <div class="block">
-        <h1 class="title">{{ user.username }}</h1>
-        <p>{{ (user.workouts||[]).length }} workouts</p>
-        <button class="button is-danger" @click="deleteUser">Delete User</button>
-        <!-- Not-following -->
-        <button v-if="!isFollowing" class="button is-warning" @click="isFollowing = !isFollowing; follow()"> Follow </button>
-        <!-- Following -->
-        <button v-else class="button" @click="isFollowing = !isFollowing; unfollow();"> Followed! </button>
+        <h1 class="title">@{{ user.username }} - {{ (user.workouts||[]).length }} workouts</h1>
+        <div class="buttons is-flex is-justify-content-space-around is-flex-wrap-nowrap">
+            <button class="button is-danger" @click="deleteUser">Delete User</button>
+            <!-- Not-following -->
+            <button v-if="!isFollowing" class="button is-warning" @click="isFollowing = !isFollowing; follow()"> Follow </button>
+            <!-- Following -->
+            <button v-else class="button" @click="isFollowing = !isFollowing; unfollow();"> Followed! </button>
+        </div>
+        
     </div>
 </template>
 
 <style scoped>
+
+.block {
+    border: 1px solid var(--white);
+    border-radius: 5px;
+    padding: 10px;
+    /* width: 400px; */
+}
+
+h1 { 
+    text-decoration: underline;
+    font-weight: bold;
+    color: var(--white);
+}
+
+.button {
+    width: 100px
+}
+
 </style>

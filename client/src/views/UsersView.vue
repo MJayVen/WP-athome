@@ -19,7 +19,9 @@ export default {
   <main>
     <div class="container is-flex is-flex-direction-column">
       <h1 class="title">User Management</h1>
-      <UserRecord v-for="user in users.getAllUsers" :user="user" />
+      <div class="container">
+        <UserRecord v-for="user in users.getAllUsers" :user="user" />
+      </div>
     </div>
   </main>
 </template>
