@@ -54,4 +54,12 @@ export default {
 label{
     color: var(--white)
 }
+
+form {
+    background-color: var(--navy-blue-light);
+    border-radius: 5px;
+    padding: 1rem;
+    width: 90%;
+    margin: auto;
+}
 </style>

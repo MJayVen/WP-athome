@@ -41,6 +41,7 @@ function submit() {
 
 <style scoped>
     .container{
+        min-width: 350px;
         width: 40%;
     }
     .box{
