@@ -2,12 +2,13 @@
 import WorkoutRecord from "./WorkoutRecord.vue";
 import { useUsersStore, type User } from "../stores/users";
 import { useSessionStore } from "../stores/session";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   components: {
     WorkoutRecord,
   },
-  data() {
+  data(): any {
     const session = useSessionStore();
     const userStore = useUsersStore();
     return {
@@ -24,7 +25,7 @@ export default {
   mounted() {
     console.log(this.curUser?.workouts);
   },
-};
+});
 </script>
 
 <!-- the box containing the list of previous workouts -->
@@ -37,14 +38,14 @@ export default {
         v-if="(curUser!.workouts || []).length > 0"
         class="content is-flex is-flex-direction-column"
       >
-        <h3 class="has-text-white">List of previous workouts:</h3>
+        <h1 class="has-text-white">List of previous workouts:</h1>
         <WorkoutRecord
           v-for="workout in curUser!.workouts"
           :workout="workout"
           @delete="deleteWorkout"
         />
       </div>
-      <h3 class="title" v-else>Click "Add a workout"</h3>
+      <h1 class="title" v-else>Click "Add a workout"</h1>
     </div>
     <div
       id="workoutListOptions"
@@ -57,13 +58,13 @@ export default {
       >
         Add a workout +
       </RouterLink>
-      <a class="button is-warning">View Analytics (not implemented)</a>
+      <a class="button is-warning">Analyze (not yet)</a>
     </div>
   </div>
 </template>
 
 <style scoped>
-h3 {
+h1 {
   padding: 1rem;
   color: var(--white);
   text-align: center;

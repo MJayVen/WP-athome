@@ -1,8 +1,8 @@
 <script lang="ts">
-import { ref } from "vue";
+import { defineComponent, ref } from "vue";
 import { useUsersStore, type User } from "../stores/users";
 
-export default {
+export default defineComponent({
     setup() {
         const users = useUsersStore();
 
@@ -15,8 +15,7 @@ export default {
 
         return { users, username, password, addUser };
     },
-
-}
+});
 </script>
 
 <template>

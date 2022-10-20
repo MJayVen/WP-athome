@@ -1,9 +1,9 @@
 <script lang="ts">
 import { useSessionStore } from '../stores/session';
 import { User, useUsersStore } from '../stores/users';
-import { ref } from 'vue';
+import { ref, defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
     data() {
         return {
             userStore: useUsersStore(),
@@ -37,7 +37,7 @@ export default {
             }
         }
     }
-}
+});
 
 </script>
 

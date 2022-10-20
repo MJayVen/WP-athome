@@ -1,7 +1,8 @@
 <script lang="ts">
 import { useSessionStore } from "@/stores/session";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   data() {
     return {
       isActive: true,
@@ -9,7 +10,7 @@ export default {
     };
   },
   props: ["workout"],
-};
+});
 </script>
 
 <template>

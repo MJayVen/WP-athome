@@ -1,8 +1,9 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import UserRecord from "../components/UserRecord.vue";
 import { useUsersStore } from "../stores/users";
 
-export default {
+export default defineComponent({
     components: {
         UserRecord,
     },
@@ -10,7 +11,7 @@ export default {
         const users = useUsersStore();
         return { users };
     },
-}
+});
 
 
 </script>

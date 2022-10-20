@@ -1,11 +1,11 @@
 <script lang="ts">
 import { useUsersStore } from "../stores/users"
 import { useSessionStore } from "../stores/session"
-import { ref } from "vue";
+import { defineComponent, ref, type Ref } from "vue";
 import router from "@/router";
 // import RouterLink from "vue-router";
 
-export default {
+export default defineComponent({
     data() {
         const id = parseInt(this.$route.params.id as string)
         const curUser = useSessionStore().getSessionUser;
@@ -13,19 +13,19 @@ export default {
         // workout already exists
         if (workout) {
             return {
-                id: parseInt(this.$route.params.id as string),
-                name: ref(workout.name),
-                weight: ref(workout.weight),
-                reps: ref(workout.reps),
-                date: ref(workout.date),
-                curUsername: curUser?.username,
+                id: parseInt(this.$route.params.id as string) as number,
+                name: ref(workout.name) as Ref<string>,
+                weight: ref(workout.weight) as Ref<number>,
+                reps: ref(workout.reps) as Ref<number>,
+                date: ref(workout.date) as Ref<string>,
+                curUsername: curUser?.username as string,
                 workoutNames: [
                     "Squats",
                     "Bench Press",
                     "Deadlift",
                     "Overhead Press",
                     "Barbell Row",
-                ]
+                ] as string[],
             }
         } else {
             return {
@@ -52,7 +52,7 @@ export default {
             }
         },
     }
-}
+});
 
 </script>
 
