@@ -5,40 +5,32 @@ import { useUsersStore, type User } from "../stores/users";
 export const useSessionStore = defineStore({
     id: 'session',
     state: () => ({
-        user: useStorage('user', {username: '', password: ''}),
+        // useStorage is reactive object stored localStorage
+        username: useStorage('username', ''),
+        password: useStorage('password', ''),
         loggedIn: useStorage('loggedIn', false),
     }),
     getters: {
-        getSessionUser(): User | undefined {
+        // returns user object if logged in
+        getUser(): User | undefined {
             if(this.loggedIn) {
-                return useUsersStore().getUser(this.user.username)
+                return useUsersStore().getUser(this.username)
             } else {
                 console.log('no user logged in - getSessionUser')
             }
-        },
-        getSessionUsername(): string | undefined {
-            if(this.loggedIn) {
-                return this.user.username;
-            } else {
-                console.log('no user logged in - getSessionUsername')
-            }
-        },
-        isLoggedIn(): boolean {
-            return this.loggedIn;
         }
     },
     actions: {
         login(username: string, password: string) {
-            const users = useUsersStore();
             // find user
-            const user = users.getAllUsers.find((user) => user.username === username);
+            const user = useUsersStore().getAllUsers.find((user) => user.username === username);
             // see if user exists
             if (user) {
                 // check password
                 if (user.password === password) {
                     // set session user
-                    this.user.username = username;
-                    this.user.password = password;
+                    this.username = username;
+                    this.password = password;
                     this.loggedIn = true;
                     console.log("logged in user " + username);
                 } else {
@@ -50,8 +42,8 @@ export const useSessionStore = defineStore({
             }
         },
         logout() {
-            this.user.username = '';
-            this.user.password = '';
+            this.username = '';
+            this.password = '';
             this.loggedIn = false;
             console.log("logged out");
         }

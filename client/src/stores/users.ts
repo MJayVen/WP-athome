@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'; 
 import { useStorage } from '@vueuse/core';
-// import session from './session'
 
 export const useUsersStore = defineStore({
     id: 'users',
@@ -120,6 +119,14 @@ export const useUsersStore = defineStore({
         getAllFollowers(username: string) {
             return this.users.find((user) => user.username === username)?.following
         },
+        isFollowing(follower: string, followee: string) {
+            const user = this.users.find((user) => user.username === follower);
+            if(user) {
+                return user.following?.includes(followee)
+            }
+            console.log("user " + follower + " not found - isFollowing")
+            return false
+        }
     }
     
 });

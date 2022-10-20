@@ -1,27 +1,25 @@
-<script lang="ts">
-import { useSessionStore } from "@/stores/session";
+<script setup lang="ts">
+import { useSessionStore } from "../stores/session";
+import { Workout } from "../stores/users";
 import { defineComponent } from "vue";
 
-export default defineComponent({
-  data() {
-    return {
-      isActive: true,
-      session: useSessionStore(),
-    };
-  },
-  props: ["workout"],
-});
+const session = useSessionStore();
+
+const props = defineProps({
+  workout: Workout || null,
+})
+
 </script>
 
 <template>
     <div class="block is-flex is-justify-content-space-between">
-      <RouterLink :to="`/workout/${workout.id}`" class="workoutButton">
-        <div class="workoutName is-size-4">{{ workout.name }}</div>
-        <div class="workoutInfo is-size-5">{{ workout.reps }} reps / {{ workout.weight }} lbs</div>
-        <div class="workoutDate is-size-7">{{ workout.date }}</div>
+      <RouterLink :to="`/workout/${props.workout?.id}`" class="workoutButton">
+        <div class="workoutName is-size-4">{{ props.workout?.name }}</div>
+        <div class="workoutInfo is-size-5">{{ props.workout?.reps }} reps / {{ props.workout?.weight }} lbs</div>
+        <div class="workoutDate is-size-7">{{ props.workout?.date }}</div>
       </RouterLink>
       <div class="buttons is-flex is-flex-direction-row">
-        <button class="button is-danger" @click="$emit('delete', workout.id)">Delete</button>
+        <button class="button is-danger" @click="$emit('delete', props.workout?.id)">Delete</button>
       </div>
     </div>
 </template>

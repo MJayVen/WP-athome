@@ -1,59 +1,45 @@
-<script lang="ts">
+<script setup lang="ts">
 import { useUsersStore } from "../stores/users"
 import { useSessionStore } from "../stores/session"
 import { defineComponent, ref, type Ref } from "vue";
 import router from "@/router";
+import { useRoute } from "vue-router";
 // import RouterLink from "vue-router";
 
-export default defineComponent({
-    data() {
-        const id = parseInt(this.$route.params.id as string)
-        const curUser = useSessionStore().getSessionUser;
-        const workout = useUsersStore().getWorkout(curUser!.username as string, id);
-        // workout already exists
-        if (workout) {
-            return {
-                id: parseInt(this.$route.params.id as string) as number,
-                name: ref(workout.name) as Ref<string>,
-                weight: ref(workout.weight) as Ref<number>,
-                reps: ref(workout.reps) as Ref<number>,
-                date: ref(workout.date) as Ref<string>,
-                curUsername: curUser?.username as string,
-                workoutNames: [
-                    "Squats",
-                    "Bench Press",
-                    "Deadlift",
-                    "Overhead Press",
-                    "Barbell Row",
-                ] as string[],
-            }
-        } else {
-            return {
-                id: parseInt(this.$route.params.id as string),
-                name: ref("Squats"),
-                weight: ref(30),
-                reps: ref(10),
-                date: ref(''),
-                curUsername: curUser?.username,
-                workoutNames: [
-                    "Squats",
-                    "Bench Press",
-                    "Deadlift",
-                    "Overhead Press",
-                    "Barbell Row",
-                ]
-            }
-        }
-    }, methods: {
-        submit() {
-            if (this.curUsername) {
-                useUsersStore().addWorkout(this.curUsername, { id: this.id, name: this.name, weight: this.weight, reps: this.reps, date: this.date })
-                router.push('/');
-            }
-        },
-    }
-});
+// Get ID from URL
+const route = useRoute();
+const id = parseInt(route.params.id as string);
 
+const curUser = useSessionStore().getUser;
+const workout = useUsersStore().getWorkout(curUser?.username as string, id as number);
+
+// workout data
+const name = ref(workout?.name || 'Squats');
+const weight = ref(workout?.weight || 30);
+const reps = ref(workout?.reps || 10);
+const date = ref(workout?.date || new Date().toLocaleDateString());
+
+// if(workout) {
+//     name.value = ;
+//     weight.value = workout.weight;
+//     reps.value = workout.reps;
+//     date.value = workout.date;
+// }
+
+// list of possible exercises
+const workoutNames = [
+    "Squats",
+    "Bench Press",
+    "Deadlift",
+    "Overhead Press",
+    "Barbell Row",
+]
+function submit() {
+    if (curUser) {
+        useUsersStore().addWorkout(curUser.username!, { id: id as number, name: name.value, weight: weight.value, reps: reps.value, date: date.value })
+        router.push('/');
+    }
+};
 </script>
 
 <template>
@@ -74,7 +60,8 @@ export default defineComponent({
         <div class="field">
             <label class="label">Weight (lbs)</label>
             <div class="control numOptions">
-                <button type="button" class="button is-success leftBtn" @click="weight=Math.max(0, weight!-5)">-</button>
+                <button type="button" class="button is-success leftBtn"
+                    @click="weight=Math.max(0, weight!-5)">-</button>
                 <input required class="input" type="number" max="999" v-model="weight">
                 <button type="button" class="button is-success rightBtn" @click="weight! += 5">+</button>
             </div>

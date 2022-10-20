@@ -1,61 +1,30 @@
-<script lang="ts">
+<script setup lang="ts">
 import WorkoutRecord from "./WorkoutRecord.vue";
 import { useUsersStore, type User } from "../stores/users";
 import { useSessionStore } from "../stores/session";
 import { defineComponent } from "vue";
 
-export default defineComponent({
-  components: {
-    WorkoutRecord,
-  },
-  data(): any {
-    const session = useSessionStore();
-    const userStore = useUsersStore();
-    return {
-      userStore: userStore,
-      curUser: userStore.getUser(session.user?.username as string),
-    };
-  },
-  methods: {
-    deleteWorkout(id: number) {
-      // remove workout from workouts array
-      this.userStore.deleteWorkout(this.curUser?.username as string, id);
-    },
-  },
-  mounted() {
-    console.log(this.curUser?.workouts);
-  },
-});
+const usersStore = useUsersStore();
+const curUser = useSessionStore().getUser;
+
+function deleteWorkout(id: number) {
+  usersStore.deleteWorkout(curUser?.username as string, id);
+};
 </script>
 
 <!-- the box containing the list of previous workouts -->
 <template>
-  <div
-    class="container is-flex is-flex-direction-row is-flex-wrap-wrap-reverse is-justify-content-center"
-  >
+  <div class="container is-flex is-flex-direction-row is-flex-wrap-wrap-reverse is-justify-content-center">
     <div id="workoutList" class="box">
-      <div
-        v-if="(curUser!.workouts || []).length > 0"
-        class="content is-flex is-flex-direction-column"
-      >
+      <div v-if="(curUser!.workouts || []).length > 0" class="content is-flex is-flex-direction-column">
         <h1 class="has-text-white">List of previous workouts:</h1>
-        <WorkoutRecord
-          v-for="workout in curUser!.workouts"
-          :workout="workout"
-          @delete="deleteWorkout"
-        />
+        <WorkoutRecord v-for="workout in curUser!.workouts" :workout="workout" @delete="deleteWorkout" />
       </div>
       <h1 class="title" v-else>Click "Add a workout"</h1>
     </div>
-    <div
-      id="workoutListOptions"
-      class="block is-flex is-flex-direction-column is-flex-align-content-center"
-    >
+    <div id="workoutListOptions" class="block is-flex is-flex-direction-column is-flex-align-content-center">
       <!-- Pass new workout id to new workout -->
-      <RouterLink
-        :to="`/workout/${userStore.newWorkoutId(curUser!.username as string)}`"
-        class="button is-success"
-      >
+      <RouterLink :to="`/workout/${usersStore.newWorkoutId(curUser!.username as string)}`" class="button is-success">
         Add a workout +
       </RouterLink>
       <a class="button is-warning">Analyze (not yet)</a>
@@ -78,20 +47,21 @@ h1 {
   padding: 0;
   min-width: 50%;
   width: 75%;
-  max-height: 40vw;
-  overflow-y: auto;
   margin-right: 10px;
 }
+
 #workoutListOptions {
   margin-bottom: auto;
   max-width: 150px;
   margin-bottom: 10px;
   color: var(--white);
 }
+
 .field .input {
   width: 150px !important;
   margin: 0 8px 0 0;
 }
+
 a {
   margin: 0 0 8px 0;
 }

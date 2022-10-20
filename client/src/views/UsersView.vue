@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import UserRecord from "../components/UserRecord.vue";
-import { useUsersStore } from "../stores/users";
+import { User, useUsersStore } from "../stores/users";
 
 export default defineComponent({
     components: {
@@ -21,7 +21,7 @@ export default defineComponent({
     <div class="container is-flex is-flex-direction-column">
       <h1 class="title">User Management</h1>
       <div class="container">
-        <UserRecord v-for="user in users.getAllUsers" :user="user" />
+        <UserRecord v-for="user in users.getAllUsers" :user="(user as User)" />
       </div>
     </div>
   </main>

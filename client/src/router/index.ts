@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import RegisterView from '../views/RegisterView.vue';
-import WorkoutView from '../views/WorkoutView.vue';
-import UsersView from '@/views/UsersView.vue';
+import AddWorkoutView from '../views/AddWorkoutView.vue';
+import UsersView from '../views/UsersView.vue';
 
 
 const router = createRouter({
@@ -27,7 +27,7 @@ const router = createRouter({
     {
       path: '/workout/:id',
       name: 'workout',
-      component: WorkoutView
+      component: AddWorkoutView
     },
     {
       path: '/users',
