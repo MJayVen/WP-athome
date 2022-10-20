@@ -8,7 +8,7 @@ console.log("current user = " + session.user?.username);
 <!-- Component which holds buttons allowing user to login/sign in.
      Shows user dropdown menu when logged in -->
 <template>
-  <div class="buttons" v-if="!session.getUsername">
+  <div class="buttons" v-if="!session.getSessionUsername">
     <RouterLink to="/login" class="button is-dark"> Log in </RouterLink>
     <RouterLink to="/register" class="button is-light"> Sign up </RouterLink>
   </div>
@@ -18,12 +18,12 @@ console.log("current user = " + session.user?.username);
     </div>
     <div class="navbar-item has-dropdown is-hoverable">
       <a class="navbar-link">
-        {{ session.getUsername }}
+        {{ session.getSessionUsername }}
       </a>
       <div class="navbar-dropdown">
-        <a class="navbar-item" href="#"> Profile </a>
+        <a class="navbar-item" href="#"> Profile (not implemented) </a>
         <a class="navbar-item"> Friends </a>
-        <a class="navbar-item"> Settings </a>
+        <a class="navbar-item"> Settings (not implemented) </a>
         <hr class="navbar-divider" />
         <a class="navbar-item" @click="session.logout()"> Logout </a>
       </div>

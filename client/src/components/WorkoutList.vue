@@ -57,7 +57,7 @@ export default {
       >
         Add a workout +
       </RouterLink>
-      <a class="button is-warning">View Analytics</a>
+      <a class="button is-warning">View Analytics (not implemented)</a>
     </div>
   </div>
 </template>

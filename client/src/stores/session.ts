@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'; 
 import { useStorage } from "@vueuse/core";
-import { useUsersStore } from "../stores/users";
+import { useUsersStore, type User } from "../stores/users";
 
 export const useSessionStore = defineStore({
     id: 'session',
@@ -9,8 +9,19 @@ export const useSessionStore = defineStore({
         loggedIn: useStorage('loggedIn', false),
     }),
     getters: {
-        getUsername(): string | null {
-            return this.user.username;
+        getSessionUser(): User | undefined {
+            if(this.loggedIn) {
+                return useUsersStore().getUser(this.user.username)
+            } else {
+                console.log('no user logged in - getSessionUser')
+            }
+        },
+        getSessionUsername(): string | undefined {
+            if(this.loggedIn) {
+                return this.user.username;
+            } else {
+                console.log('no user logged in - getSessionUsername')
+            }
         },
         isLoggedIn(): boolean {
             return this.loggedIn;

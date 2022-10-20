@@ -49,11 +49,16 @@ export const useUsersStore = defineStore({
         addWorkout(username: string, workout: Workout) {
             const user = this.users.find((user) => user.username === username)
             if (user) {
+                // if workout already exists, delete existing and replace with new
+                if(user.workouts?.find((w) => w.id === workout.id)) {
+                    console.log("replacing workout with id " + workout.id);
+                    this.deleteWorkout(username as string, workout.id as number)
+                }
+                // add new workout
                 user.workouts?.push(workout);
                 console.log("added workout " + workout.id + " to user " + username)
             } else {
                 console.log('user ' + username + ' not found - addWorkout')
-
             }
         },
         deleteWorkout(username: string, id: number) {
@@ -78,6 +83,13 @@ export const useUsersStore = defineStore({
             }
             console.log('user ' + username + ' not found - getAllWorkouts')
             return []
+        },
+        getWorkout(username: string, id: number): Workout | undefined {
+            const user = this.users.find((user) => user.username === username);
+            if (user) {
+                return user.workouts?.find((workout) => workout.id === id);
+            }
+            console.log('user ' + username + ' not found - getWorkout')
         },
         addFollow(follower: string, followee: string) {
             const user = this.users.find((user) => user.username === follower);
@@ -124,6 +136,7 @@ export class User {
 export class Workout {
     public id?: number;
     public name?: string;
-    public details?: string;
+    public weight?: number;
+    public reps?: number;
     public date?: string;
 }

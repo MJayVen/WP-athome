@@ -9,32 +9,26 @@ export default {
     };
   },
   props: ["workout"],
-  // methods: {
-  //   delete() {
-      
-  //     // this.$emit('delete');
-  //   },
-  // }
 };
 </script>
 
 <template>
-  <li>
     <div class="block is-flex is-justify-content-space-between">
       <RouterLink :to="`/workout/${workout.id}`" class="workoutButton">
-        <i>{{ workout.date }}</i> - {{ workout.name }} - {{ workout.details }}
+        <div class="workoutName is-size-4">{{ workout.name }}</div>
+        <div class="workoutInfo is-size-5">{{ workout.reps }} reps / {{ workout.weight }} lbs</div>
+        <div class="workoutDate is-size-7">{{ workout.date }}</div>
       </RouterLink>
       <div class="buttons is-flex is-flex-direction-row">
         <button class="button is-danger" @click="$emit('delete', workout.id)">Delete</button>
       </div>
     </div>
-  </li>
 </template>
 
 <style scoped>
-li {
+/* li {
   list-style: none;
-}
+} */
 .block {
   border-top: 1px solid var(--white);
   min-height: 5rem;
@@ -45,6 +39,7 @@ li {
   text-decoration: none;
   width: 300px;
   height: 100%;
+  max-height: 650px;
   padding: 1.5rem 0;
   text-align: center;
   font-weight: bold;
