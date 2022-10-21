@@ -13,11 +13,12 @@ const id = parseInt(route.params.id as string);
 const curUser = useSessionStore().getUser;
 const workout = useUsersStore().getWorkout(curUser?.username as string, id as number);
 
-// workout data
+// workout data. uses existing workout values if they exist, otherwise uses defaults
 const name = ref(workout?.name || 'Squats');
 const weight = ref(workout?.weight || 30);
 const reps = ref(workout?.reps || 10);
-const date = ref(workout?.date || new Date().toISOString().split("T")[0]);
+// account for time zone, adjust to EST
+const date = ref(workout?.date || new Date(Date.now() + -300*60*1000).toISOString().split("T")[0]);
 
 // list of possible exercises
 const workoutNames = [

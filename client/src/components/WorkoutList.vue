@@ -27,7 +27,7 @@ function deleteWorkout(id: number) {
       <RouterLink :to="`/workout/${usersStore.newWorkoutId(curUser!.username as string)}`" class="button is-success">
         Add a workout +
       </RouterLink>
-      <a class="button is-warning">Analyze (not yet)</a>
+      <RouterLink to='/analyze' class="button is-warning">Stats</RouterLink>
     </div>
   </div>
 </template>

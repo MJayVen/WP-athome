@@ -5,7 +5,6 @@
   "main": "index.js",
   "author": "",
   "license": "ISC",
-
   "scripts": {
     "dev": "nodemon --watch server server/index.js",
     "start": "node server/index.js"
@@ -14,7 +13,8 @@
     "express": "^4.18.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "vue-tsc": "^1.0.8"
   },
   "repository": {
     "type": "git",
