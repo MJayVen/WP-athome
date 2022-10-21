@@ -17,14 +17,7 @@ const workout = useUsersStore().getWorkout(curUser?.username as string, id as nu
 const name = ref(workout?.name || 'Squats');
 const weight = ref(workout?.weight || 30);
 const reps = ref(workout?.reps || 10);
-const date = ref(workout?.date || new Date().toLocaleDateString());
-
-// if(workout) {
-//     name.value = ;
-//     weight.value = workout.weight;
-//     reps.value = workout.reps;
-//     date.value = workout.date;
-// }
+const date = ref(workout?.date || new Date().toISOString().split("T")[0]);
 
 // list of possible exercises
 const workoutNames = [

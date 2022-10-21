@@ -37,6 +37,7 @@ export const useUsersStore = defineStore({
         getUser(username: string): User | undefined {
             return this.users.find((user) => user.username === username);
         },
+        // generates a new id based on length of workout list
         newWorkoutId(username: string) {
             const user = this.users.find((user) => user.username === username)
             if (user) {
@@ -75,6 +76,7 @@ export const useUsersStore = defineStore({
                 console.log('user ' + username + ' not found - deleteWorkout')
             }
         },
+        // returns an array of workouts
         getAllWorkouts(username: string): Workout[] {
             const user = this.users.find((user) => user.username === username);
             if (user) {
@@ -83,6 +85,7 @@ export const useUsersStore = defineStore({
             console.log('user ' + username + ' not found - getAllWorkouts')
             return []
         },
+        // returns a single workout 
         getWorkout(username: string, id: number): Workout | undefined {
             const user = this.users.find((user) => user.username === username);
             if (user) {

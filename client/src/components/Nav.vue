@@ -32,8 +32,12 @@ let isActive = ref(false); // reactive variable for hamburger menu
       </div>
 
       <div id="myNavbar" class="navbar-menu" :class="{ 'is-active': isActive }">
-
         <div class="navbar-end">
+          <div class="navbar-item">
+            <RouterLink to="/users" class="button is-dark">
+              Manage Users
+            </RouterLink>
+          </div>
           <LoginBadge />
         </div>
       </div>

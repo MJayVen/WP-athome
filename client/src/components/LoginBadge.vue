@@ -12,16 +12,13 @@ const session = useSessionStore();
     <RouterLink to="/register" class="button is-light"> Sign up </RouterLink>
   </div>
   <div v-else class="is-flex is-flex-direction-row">
-    <div class="navbar-item">
-          <RouterLink to="/users" class="button is-dark"> Manage Users </RouterLink>
-    </div>
     <div class="navbar-item has-dropdown is-hoverable">
       <a class="navbar-link">
         {{ session.username }}
       </a>
       <div class="navbar-dropdown">
         <RouterLink to='/' class="navbar-item" > My Workouts </RouterLink>
-        <a class="navbar-item"> Friends </a>
+        <RouterLink to='/following' class="navbar-item"> Following </RouterLink>
         <!-- <a class="navbar-item"> Settings (not implemented) </a> -->
         <hr class="navbar-divider" />
         <a class="navbar-item" @click="session.logout()"> Logout </a>

@@ -2,10 +2,11 @@
 import { useSessionStore } from "../stores/session";
 import { Workout } from "../stores/users"; 
 
-const session = useSessionStore();
 const props = defineProps({
   workout: Workout
 });
+
+
 </script>
 
 <template>
