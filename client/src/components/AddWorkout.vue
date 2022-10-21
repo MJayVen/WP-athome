@@ -10,7 +10,9 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 const id = parseInt(route.params.id as string);
 
-const curUser = useSessionStore().getUser;
+const session = useSessionStore();
+
+const curUser = session.getUser;
 const workout = useUsersStore().getWorkout(curUser?.username as string, id as number);
 
 // workout data. uses existing workout values if they exist, otherwise uses defaults
@@ -29,8 +31,8 @@ const workoutNames = [
     "Barbell Row",
 ]
 function submit() {
-    if (curUser) {
-        useUsersStore().addWorkout(curUser.username!, { id: id as number, name: name.value, weight: weight.value, reps: reps.value, date: date.value })
+    if (session.loggedIn) {
+        useUsersStore().addWorkout(curUser?.username || "", { id: id as number, name: name.value, weight: weight.value, reps: reps.value, date: date.value })
         router.push('/');
     }
 };
@@ -85,14 +87,8 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-
 input[type=number] {
     -moz-appearance: textfield;
-}
-
-label,
-h1 {
-    color: var(--white)
 }
 
 /* form itself */
@@ -114,14 +110,9 @@ form {
 
 /* +/- buttons */
 .button {
-    color: var(--white);
     font-weight: bold;
     border-radius: 5px;
     border: none;
-}
-
-.button:hover {
-    color: var(--white)
 }
 
 .leftBtn {

@@ -109,12 +109,8 @@ workoutList.forEach((workout) => {
 </template>
 
 <style scoped>
-h1 {
-  color: var(--white);
-}
 
 p {
-  color: var(--white);
   margin-right: 30px;
 }
 

@@ -35,7 +35,6 @@ function deleteWorkout(id: number) {
 <style scoped>
 h1 {
   padding: 1rem;
-  color: var(--white);
   text-align: center;
 }
 
@@ -54,7 +53,6 @@ h1 {
   margin-bottom: auto;
   max-width: 150px;
   margin-bottom: 10px;
-  color: var(--white);
 }
 
 .field .input {

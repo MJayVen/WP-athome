@@ -18,7 +18,6 @@ const users = useUsersStore();
 
 <style scoped>
 h1 {
-  color: var(--white);
   text-align: center;
 }
 </style>

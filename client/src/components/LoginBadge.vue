@@ -18,7 +18,7 @@ const session = useSessionStore();
       </a>
       <div class="navbar-dropdown">
         <RouterLink to='/' class="navbar-item" > My Workouts </RouterLink>
-        <RouterLink to='/following' class="navbar-item"> Following </RouterLink>
+        <RouterLink to='/following' class="navbar-item"> Friends </RouterLink>
         <!-- <a class="navbar-item"> Settings (not implemented) </a> -->
         <hr class="navbar-divider" />
         <a class="navbar-item" @click="session.logout()"> Logout </a>

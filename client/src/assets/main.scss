@@ -20,9 +20,25 @@ html {
 ::-webkit-scrollbar {
     width: 8px;
 }
+
 // Bar
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     box-shadow: inset 0 0 10px 10px var(--white);
     border: solid 3px transparent; // acts as margin
+}
+
+// Set color of all text to white
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div,
+label,
+li {
+    color: var(--white) !important;
 }

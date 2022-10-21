@@ -24,18 +24,13 @@ const workouts = usersStore.getAllWorkouts(props.user as string);
 </template>
 
 <style scoped>
-h1 {
-  color: var(--white);
-}
 
 li {
-  color: var(--white);
   font-size: x-large;
   border-bottom: 1px solid var(--white);
 }
 
 p {
-  color: var(--white);
   font-size: large;
 }
 

@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'; 
+import { defineStore } from 'pinia';
 import { useStorage } from '@vueuse/core';
 
 export const useUsersStore = defineStore({
@@ -13,22 +13,30 @@ export const useUsersStore = defineStore({
     },
     actions: {
         addUser(username: string, password: string) {
-            const workouts = [] as Workout[];
-            const following = [] as string[];
+            if (username === '' || password === '') {
+                throw new Error('username or password cannot be empty')
+            }
+            // check if user already exists
+            if (!this.users.find(user => user.username === username)) {
+                const workouts = [] as Workout[];
+                const following = [] as string[];
 
-            this.users.push(
-                {
-                    username,
-                    password,
-                    workouts,
-                    following,
-                } 
-            )
-            console.log("added user" + username)
+                this.users.push(
+                    {
+                        username,
+                        password,
+                        workouts,
+                        following,
+                    }
+                )
+                console.log("added user" + username)
+            } else {
+                throw new Error("User already exists")
+            }
         },
         deleteUser(username: string) {
             const user = this.users.find((user) => user.username === username);
-            if(user){
+            if (user) {
                 this.users.splice(this.users.indexOf(user), 1);
             } else {
                 console.log('user ' + username + ' not found - deleteUser')
@@ -42,7 +50,7 @@ export const useUsersStore = defineStore({
             const user = this.users.find((user) => user.username === username)
             if (user) {
                 // return new id
-                return (user.workouts?.length || 0)+1
+                return (user.workouts?.length || 0) + 1
             }
             console.log('user ' + username + ' not found - newWorkoutId')
         },
@@ -50,7 +58,7 @@ export const useUsersStore = defineStore({
             const user = this.users.find((user) => user.username === username)
             if (user) {
                 // if workout already exists, delete existing and replace with new
-                if(user.workouts?.find((w) => w.id === workout.id)) {
+                if (user.workouts?.find((w) => w.id === workout.id)) {
                     console.log("replacing workout with id " + workout.id);
                     this.deleteWorkout(username as string, workout.id as number)
                 }
@@ -95,21 +103,21 @@ export const useUsersStore = defineStore({
         },
         addFollow(follower: string, followee: string) {
             const user = this.users.find((user) => user.username === follower);
-            if(user) {
+            if (user) {
                 // as long as user not already in follow list
-                if(!user.following?.includes(followee)){
+                if (!user.following?.includes(followee)) {
                     user.following?.push(followee);
                     console.log("followed " + followee);
                 } else {
                     console.log("already following " + followee)
-                }                
+                }
             } else {
                 console.log("user " + follower + " not found - addFollow")
             }
         },
         deleteFollow(follower: string, followee: string) {
             const user = this.users.find((user) => user.username === follower);
-            if(user) {
+            if (user) {
                 const follow = user.following?.find((follow) => follow === followee);
                 if (follow) {
                     user.following?.splice(user.following.indexOf(follow), 1);
@@ -124,14 +132,14 @@ export const useUsersStore = defineStore({
         },
         isFollowing(follower: string, followee: string) {
             const user = this.users.find((user) => user.username === follower);
-            if(user) {
+            if (user) {
                 return user.following?.includes(followee)
             }
             console.log("user " + follower + " not found - isFollowing")
             return false
         }
     }
-    
+
 });
 
 

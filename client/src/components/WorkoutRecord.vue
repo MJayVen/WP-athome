@@ -23,9 +23,7 @@ const props = defineProps({
 </template>
 
 <style scoped>
-/* li {
-  list-style: none;
-} */
+
 .block {
   border-top: 1px solid var(--white);
   min-height: 5rem;
@@ -41,7 +39,6 @@ const props = defineProps({
   text-align: center;
   font-weight: bold;
   font-size: 1.25rem;
-  color: var(--white);
 }
 .workoutButton:hover {
   text-decoration: none;
