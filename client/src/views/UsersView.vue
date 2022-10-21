@@ -1,19 +1,8 @@
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import UserRecord from "../components/UserRecord.vue";
 import { User, useUsersStore } from "../stores/users";
 
-export default defineComponent({
-    components: {
-        UserRecord,
-    },
-    setup() {
-        const users = useUsersStore();
-        return { users };
-    },
-});
-
-
+const users = useUsersStore();
 </script>
 
 <template>
