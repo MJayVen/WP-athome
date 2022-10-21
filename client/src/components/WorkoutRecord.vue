@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { useSessionStore } from "../stores/session";
-import { Workout } from "../stores/users";
-import { defineComponent } from "vue";
+import { Workout } from "../stores/users"; 
 
 const session = useSessionStore();
-
 const props = defineProps({
-  workout: Workout || null,
-})
-
+  workout: Workout
+});
 </script>
 
 <template>

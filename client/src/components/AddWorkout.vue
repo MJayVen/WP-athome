@@ -43,7 +43,7 @@ function submit() {
 </script>
 
 <template>
-    <form @submit.prevent="submit()">
+    <form @submit.prevent="submit()" class="is-flex is-flex-direction-column is-align-items-center">
         <h1 class="title">Add a Workout!</h1>
         <div class="field">
             <label class="label">Name</label>
@@ -106,7 +106,8 @@ form {
     background-color: var(--navy-blue-light);
     border-radius: 5px;
     padding: 1rem;
-    width: 90%;
+    min-width: 300px;
+    width: 30%;
     margin: auto;
 }
 
