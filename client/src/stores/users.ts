@@ -85,10 +85,15 @@ export const useUsersStore = defineStore({
             }
         },
         // returns an array of workouts
-        getAllWorkouts(username: string): Workout[] {
+        getAllWorkouts(username: string, workoutName?: string): Workout[] {
             const user = this.users.find((user) => user.username === username);
             if (user) {
-                return user.workouts || []
+                // if workoutName is defined, filter workouts by name
+                if (workoutName) {
+                    return user.workouts?.filter((workout) => workout.name === workoutName) || [];
+                } else { // else return all workouts
+                    return user.workouts || [];
+                }
             }
             console.log('user ' + username + ' not found - getAllWorkouts')
             return []
