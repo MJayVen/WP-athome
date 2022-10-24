@@ -54,9 +54,8 @@ function deleteUser() {
 
 <template>
   <div class="block">
-    <h1 class="title">
-      <i>{{ user?.username }}</i> - {{ (user?.workouts || []).length }} workouts
-    </h1>
+    <h1 class="title username">@{{ user?.username }}</h1>
+    <h1 class="title">{{ (user?.workouts || []).length }} total workouts</h1>
     <div
       class="buttons is-flex is-justify-content-space-around is-flex-wrap-nowrap"
     >
@@ -97,5 +96,14 @@ h1 {
 
 .button {
   width: 100px;
+}
+
+.username {
+  font-style: italic;
+  background-color: var(--navy-blue-light) !important;
+  padding: 5px;
+  border-radius: 5px;
+  min-width: 5em;
+  width: fit-content;
 }
 </style>

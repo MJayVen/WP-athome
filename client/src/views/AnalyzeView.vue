@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import WorkoutStats from "../components/WorkoutStats.vue";
 import { useSessionStore } from "../stores/session";
 
@@ -13,16 +13,23 @@ const workoutNames = [
   "Overhead Press",
   "Barbell Rows",
 ];
+const search = ref(''); // val of search bar
 
-const searchVal = ref('bench Press'); // val of search bar
+const results = computed(() => {
+  return workoutNames.filter((name) => {
+    return name.toLowerCase().includes(search.value.toLowerCase());
+  }) || workoutNames;
+});
+
+console.log(results.value);
 
 </script>
 
 <template>
   <div v-if="useSessionStore().loggedIn" class="container">
     <h1 class="title">Your Workout Stats</h1>
-    <input class="input is-medium" type="text" placeholder="Search for workout type" v-model="searchVal"/>
-    <WorkoutStats v-if="(workoutNames.includes(searchVal) || searchVal === '')" v-for="workoutName in workoutNames" :workoutName="workoutName" :searchVal="searchVal" />
+    <input class="input is-medium" type="text" placeholder="Search for workout type" v-model="search"/>
+    <WorkoutStats v-if="results.length > 0" v-for="workoutName in results" :workoutName="workoutName"/>
     <h2 v-else class="title">Workout type not found...</h2>
   </div>
   <h1 v-else class="title">Please log in or sign up</h1>
@@ -33,6 +40,9 @@ const searchVal = ref('bench Press'); // val of search bar
 h1 {
   margin-top: 1rem;
   text-align: center;
+}
+h2 {
+  margin-left: 5%;
 }
 
 input {
