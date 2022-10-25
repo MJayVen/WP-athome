@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyze Info</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        html {
+            background-color: #00051F;
+        }
+
+        h1 {
+            margin-top: 1rem;
+            text-align: center;
+            color: white !important;
+        }
+
+        h2 {
+            color: white !important;
+        }
+
+        input {
+            margin: 1rem auto;
+            margin-left: 5%;
+            max-width: 20rem !important;
+        }
+
+        p {
+            margin-right: 30px;
+            color: white !important;
+        }
+
+        .block {
+            border-bottom: 1px solid white;
+            margin-bottom: 70px !important;
+            width: 90%;
+            margin: auto;
+        }
+
+        .statVal {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title">Your Workout Stats</h1>
+        <input class="input is-medium" type="text" placeholder="Search for workout type" />
+        <div class="block">
+            <h2 class="title">Deadlift</h2>
+            <div v-if="workoutList.length > 0" class="is-flex is-flex-direction-row">
+                <p>
+                    <span>Total Workouts: </span>
+                    <span class="statVal">20</span>
+                </p>
+                <p>
+                    <span>Max Weight: </span>
+                    <span class="statVal">20 lbs.</span>
+                </p>
+            </div>
+        </div>
+        <div class="block">
+            <h2 class="title">Squats</h2>
+            <div v-if="workoutList.length > 0" class="is-flex is-flex-direction-row">
+                <p>
+                    <span>Total Workouts: </span>
+                    <span class="statVal">20</span>
+                </p>
+                <p>
+                    <span>Max Weight: </span>
+                    <span class="statVal">20 lbs.</span>
+                </p>
+            </div>
+        </div>
+        <div class="block">
+            <h2 class="title">Overhead Press</h2>
+            <div v-if="workoutList.length > 0" class="is-flex is-flex-direction-row">
+                <p>
+                    <span>Total Workouts: </span>
+                    <span class="statVal">20</span>
+                </p>
+                <p>
+                    <span>Max Weight: </span>
+                    <span class="statVal">20 lbs.</span>
+                </p>
+            </div>
+        </div>
+        <div class="block">
+            <h2 class="title">Bench Press</h2>
+            <div v-if="workoutList.length > 0" class="is-flex is-flex-direction-row">
+                <p>
+                    <span>Total Workouts: </span>
+                    <span class="statVal">20</span>
+                </p>
+                <p>
+                    <span>Max Weight: </span>
+                    <span class="statVal">20 lbs.</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

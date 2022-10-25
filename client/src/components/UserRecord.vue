@@ -57,7 +57,7 @@ function deleteUser() {
     <h1 class="title username">@{{ user?.username }}</h1>
     <h1 class="title">{{ (user?.workouts || []).length }} total workouts</h1>
     <div
-      class="buttons is-flex is-justify-content-space-around is-flex-wrap-nowrap"
+      class="buttons is-flex is-justify-content-center is-flex-wrap-nowrap"
     >
       <div v-if="user?.username == curUser.username">
         <!-- Already logged in as user -->
