@@ -1,19 +1,15 @@
 <script setup lang="ts">
-import { useUsersStore } from "../stores/users";
-import { useSessionStore } from "../stores/session";
+import { users } from "../stores/users";
+import { session } from "../stores/session";
 
-const userStore = useUsersStore();
-const sessionStore = useSessionStore();
+const myUsers = users();
 
 const props = defineProps({
   workoutName: String,
 });
 
-const workoutList = userStore.getAllWorkouts(
-  sessionStore.username,
-  props.workoutName
-);
-
+// const workoutList = users.getAllWorkouts(session.username, props.workoutName);
+const workoutList = users.getAllWorkouts();
 // calculate stats
 let maxWeight = 0;
 workoutList.forEach((workout) => {

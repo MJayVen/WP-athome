@@ -1,6 +1,38 @@
 import { defineStore } from 'pinia'; 
 import { useStorage } from "@vueuse/core";
-import { useUsersStore, type User } from "../stores/users";
+import {users, type User } from "./users";
+import { reactive } from 'vue';
+import myFetch from '@/services/myFetch';
+
+const session = reactive({
+    user: null as User | null,
+    loading: 0,
+    error: null as string | null,
+    messages: [] as Message[]
+})
+
+export default session;
+
+export function login(username: string, password: string){
+    session.user = {
+        
+    }
+}
+
+export async function api<T>(url: string, data: any = null, method?: string) {
+    session.loading++;
+    // setError(null);
+    try {
+        return await myFetch(url, data, method);
+    } catch (error) {
+        // setError(error as string);
+        console.log(error);
+    } finally {
+        session.loading--;
+    }
+
+    return {} as T;
+}
 
 export const useSessionStore = defineStore({
     id: 'session',
@@ -14,7 +46,7 @@ export const useSessionStore = defineStore({
         // returns user object if logged in
         getUser(): User | undefined {
             if(this.loggedIn) {
-                return useUsersStore().getUser(this.username)
+                return users().getUser(this.username)
             } else {
                 console.log('no user logged in - getSessionUser')
             }
@@ -23,7 +55,7 @@ export const useSessionStore = defineStore({
     actions: {
         login(username: string, password: string) {
             // find user
-            const user = useUsersStore().getAllUsers.find((user) => user.username === username);
+            const user = users().getAllUsers.find((user) => user.username === username);
             // see if user exists
             if (user) {
                 // check password
@@ -49,3 +81,8 @@ export const useSessionStore = defineStore({
         }
     }
 });
+
+export interface Message {
+    text: string;
+    type: 'danger' | 'warning' | 'success' | 'info';
+}

@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { useSessionStore } from "../stores/session";
 import { User, useUsersStore } from "../stores/users";
-import { ref, defineComponent } from "vue";
+import { ref, defineComponent, type PropType } from "vue";
 
 const usersStore = useUsersStore();
 const curUser = useSessionStore();
 
 const props = defineProps({
-  user: User,
+  user: {
+    type: Object as PropType<User>,
+    required: true,
+  },
 });
 
 // check is logged in user is following listed user
