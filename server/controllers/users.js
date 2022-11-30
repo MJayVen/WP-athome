@@ -14,6 +14,9 @@ app
     .get('/:uid', (req, res, next) => {
         res.send(users.getUser(+req.params.uid));
     })
+    .get('/:uid/followers', (req, res, next) => {
+        res.send(users.getFollowers(+req.params.uid));
+    })
     .patch('/follow/:uid/:fid', (req, res, next) => {
         res.send(users.follow(+req.params.uid, +req.params.fid));
     })

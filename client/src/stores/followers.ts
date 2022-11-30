@@ -1,6 +1,6 @@
 import { reactive, watch } from "vue";
 import { getUser, type User } from "./users";
-import session from "./session";
+import session, { api } from "./session";
 
 
 const followList = reactive([] as User[]);
@@ -8,7 +8,9 @@ const followList = reactive([] as User[]);
 export default followList;
 
 export function loadFollowers() {
-    followList.splice(0, followList.length, ...session.user?.following || [])
+    api(`users/followers/${session.user?.uid}`).then((data) =>{
+        followList.splice(0, followList.length, ...data as User[]);
+    });
 }
 watch(() => session.user, loadFollowers);
 

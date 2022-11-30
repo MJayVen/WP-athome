@@ -25,6 +25,10 @@ const createUser = (user) => {
     data.push(user);
 };
 
+const getFollowers = (uid) => {
+    return data.filter(user => user === uid).following;
+};
+
 /**
  * 
  * @param {number} uid 

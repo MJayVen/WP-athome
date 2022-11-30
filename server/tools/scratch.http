@@ -12,3 +12,6 @@ PATCH http://127.0.0.1:3000/api/v1/users/follow/1/2
 
 ###
 PATCH http://127.0.0.1:3000/api/v1/users/unfollow/1/2
+
+###
+DELETE http://127.0.0.1:3000/api/v1/workouts/1/2

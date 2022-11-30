@@ -1,22 +1,17 @@
 <script setup lang="ts">
+import session from "@/stores/session";
+import { deleteWorkout } from "@/stores/workouts";
 import WorkoutRecord from "./WorkoutRecord.vue";
-import { useUsersStore, type User } from "../stores/users";
-import { useSessionStore } from "../stores/session";
-import { defineComponent } from "vue";
 
-const usersStore = useUsersStore();
-const curUser = useSessionStore().getUser;
 
-function deleteWorkout(id: number) {
-  usersStore.deleteWorkout(curUser?.username as string, id);
-};
+
 </script>
 
 <!-- the box containing the list of previous workouts -->
 <template>
   <div class="container is-flex is-flex-direction-row is-flex-wrap-wrap-reverse is-justify-content-center">
     <div id="workoutList" class="box">
-      <div v-if="(curUser!.workouts || []).length > 0" class="content is-flex is-flex-direction-column">
+      <div v-if="(session.user!.workouts || []).length > 0" class="content is-flex is-flex-direction-column">
         <h1 class="has-text-white">List of previous workouts:</h1>
         <WorkoutRecord v-for="workout in curUser!.workouts" :workout="workout" @delete="deleteWorkout" />
       </div>

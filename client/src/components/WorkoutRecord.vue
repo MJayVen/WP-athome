@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useSessionStore } from "../stores/session";
-import { Workout } from "../stores/users"; 
 
 const props = defineProps({
   workout: Workout

@@ -29,6 +29,13 @@ export function deleteUser(uid: number) {
     users.filter((user) => user.uid !== uid);
 }
 
+export function getNewUID() {
+    if (users.length === 0) {
+        return 1;
+    }
+    return users.length + 1;
+}
+
 export interface User {
     uid: number;
     username: string;

@@ -1,10 +1,11 @@
 <script setup lang="ts">
-  import WorkoutList from '../components/WorkoutList.vue';
-  import { useSessionStore } from '../stores/session';
+import session from '@/stores/session';
+import WorkoutList from '../components/WorkoutList.vue';
+
 </script>
 
 <template>
-  <div v-if="useSessionStore().loggedIn" class="container">
+  <div v-if="session" class="container">
     <WorkoutList />
   </div>
   <h1 v-else class="title">Please log in or sign up</h1>

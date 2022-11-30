@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
 import myFetch from '@/services/myFetch';
-import type { User } from './users';
+import { getNewUID, type User } from './users';
 
 const session = reactive({
     user: null as User | null,
@@ -27,7 +27,7 @@ export async function api<T>(url: string, data: any = null, method?: string) {
 }
 
 export function login(username: string, password: string){
-    const uid = /*FUNCTION THAT GETS A NEW ID */;
+    const uid = getNewUID();
     session.user = {
         uid,
         username,
@@ -38,7 +38,6 @@ export function login(username: string, password: string){
 export function logout() {
     session.user = null;
 }
-
 
 export interface Message {
     text: string;
