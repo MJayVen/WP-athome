@@ -15,6 +15,12 @@ app
         } else {
             res.sendStatus(404);
         }
+    })
+    .post('/:uid', (req, res, next) => {
+        res.send(workouts.addWorkout(+req.params.uid, req.body));
+    })
+    .delete('/:uid/:wid', (req, res, next) => {
+        res.send(workouts.removeWorkout(+req.params.uid, +req.params.wid));
     });
 
 module.exports = app;

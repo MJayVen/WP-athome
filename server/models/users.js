@@ -1,11 +1,11 @@
-const users = require('../data/users.json');
+const data = require('../data/users.json');
 
 /**
  * 
  * @returns {User[]} all users
  */
 const getUsers = () => {
-    return users;
+    return data;
 };
 
 /**
@@ -14,7 +14,7 @@ const getUsers = () => {
  * @returns {User} user matching username
  */
 const getUser = (uid) => {
-    return users.find(user => user.uid === uid);
+    return data.find(user => user.uid === uid);
 };
 
 /**
@@ -22,7 +22,7 @@ const getUser = (uid) => {
  * @param {User} user object
  */
 const createUser = (user) => {
-    users.push(user);
+    data.push(user);
 };
 
 /**
@@ -35,14 +35,11 @@ const follow = (uid, fid) => {
     if (!follower.following.includes(fid)) {
         follower.following.push(fid);
     }
-    return follower;
 }
 
 const unfollow = (uid, fid) => {
     const follower = getUser(uid);
-    follower.following = follower.following.filter(uid => uid !== fid);
-    return follower;
-    
+    follower.following = follower.following.filter(uid => uid !== fid);   
 }
 
 module.exports = {
