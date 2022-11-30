@@ -22,12 +22,12 @@ export function follow(id: number) {
     }
 }
 
-export function unfollow(id: number) {
-    const i = followList.findIndex(followee => followee.id === id);
+export function unfollow(uid: number) {
+    const i = followList.findIndex(followee => followee.uid === uid);
     if(i > -1) {
         followList.splice(i, 1)
         console.log("unfollowed user " + followList[i].username)
     } else {
-        console.log("user with id " + id + " not found");
+        console.log("user with uid " + uid + " not found");
     }
 }

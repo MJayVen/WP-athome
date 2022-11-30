@@ -2,7 +2,7 @@ import { reactive, watch } from "vue";
 import session, { api } from "./session";
 
 export interface Workout {
-    id: number;
+    wid: number;
     name: string;
     weight: number;
     reps: number;
@@ -28,12 +28,12 @@ export function addWorkout(workout: Workout) {
     })
 }
 
-export function deleteWorkout(id: number) {
-    const i = workoutList.findIndex(workout => workout.id === id);
+export function deleteWorkout(wid: number) {
+    const i = workoutList.findIndex(workout => workout.wid === wid);
     if (i > -1) {
         workoutList.splice(i, 1)
     } else {
-        console.log("Workout id " + id + " cannot be not found");
+        console.log("Workout wid " + wid + " cannot be not found");
     }
 }
 

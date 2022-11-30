@@ -1,25 +1,54 @@
 [
     {
-        "id": 1,
+        "uid": 1,
         "username": "a",
         "password": "a",
         "workouts": [
             {
-                "id": 1,
+                "wid": 1,
                 "name": "Squats",
                 "weight": 30,
                 "reps": 10,
                 "date": "2022-11-28"
             },
             {
-                "id": 2,
+                "wid": 2,
                 "name": "Squats",
                 "weight": 30,
                 "reps": 10,
                 "date": "2022-11-28"
             },
             {
-                "id": 3,
+                "wid": 3,
+                "name": "Squats",
+                "weight": 30,
+                "reps": 10,
+                "date": "2022-11-28"
+            }
+        ],
+        "following": []
+    },
+    {
+        "uid": 2,
+        "username": "b",
+        "password": "b",
+        "workouts": [
+            {
+                "wid": 1,
+                "name": "Squats",
+                "weight": 30,
+                "reps": 10,
+                "date": "2022-11-28"
+            },
+            {
+                "wid": 2,
+                "name": "Squats",
+                "weight": 30,
+                "reps": 10,
+                "date": "2022-11-28"
+            },
+            {
+                "wid": 3,
                 "name": "Squats",
                 "weight": 30,
                 "reps": 10,
