@@ -21,31 +21,37 @@ export function loadWorkouts() {
 // watch session.user to load workouts
 watch(() => session.user, loadWorkouts);
 
-export function addWorkout(name: string, weight: number, reps: number, date: string) {
-    
+export function addWorkout(wid: number, name: string, weight: number, reps: number, date: string) {
     const workout = {
-        wid: newWorkoutId(),
+        wid,
         name,
         weight,
         reps,
         date
     };
-
     workoutList.push(workout);
     console.log("added workout");
-
-
     // api(`workouts/${session.user?.username}`, workout).then((data) => {
     //     workoutList.push(workout);
     //     console.log("Added workout");
     // })
 }
 
+export function getWorkout(wid: number) {
+    return workoutList.find((workout) => workout.wid === wid);
+}
+
+export function getWorkoutsById(wid: number) {
+    /* USE API */
+    return workoutList.filter((workout) => workout.wid === wid);
+    // THIS IS A PLACEHOLDER, USE API
+}
+
 export function deleteWorkout(workout: Workout) {
     workoutList.filter((workout) => workout.wid !== workout.wid);
 }
 
-function newWorkoutId() {
+export function newWorkoutId() {
     if (workoutList.length === 0) {
         return 1;
     }
