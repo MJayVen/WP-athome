@@ -28,9 +28,9 @@ export async function api<T>(url: string, data: any = null, method?: string) {
 
 export function login(username: string, password: string) {
   api(`users/username/${username}`).then((data) => {
-    if (data) {
+    if (data as { uid: number }) {
       session.user = {
-        uid: data.uid,
+        uid: uid,
         username: username,
         password: password,
       };
