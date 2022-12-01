@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import session from "@/stores/session";
-import { deleteWorkout } from "@/stores/workouts";
+import workoutList, { deleteWorkout, newWorkoutId } from "@/stores/workouts";
 import WorkoutRecord from "./WorkoutRecord.vue";
 
 
@@ -11,15 +10,15 @@ import WorkoutRecord from "./WorkoutRecord.vue";
 <template>
   <div class="container is-flex is-flex-direction-row is-flex-wrap-wrap-reverse is-justify-content-center">
     <div id="workoutList" class="box">
-      <div v-if="(session.user!.workouts || []).length > 0" class="content is-flex is-flex-direction-column">
+      <div v-if="workoutList.length" class="content is-flex is-flex-direction-column">
         <h1 class="has-text-white">List of previous workouts:</h1>
-        <WorkoutRecord v-for="workout in curUser!.workouts" :workout="workout" @delete="deleteWorkout" />
+        <WorkoutRecord v-for="workout in workoutList" :workout="workout" @delete="deleteWorkout" />
       </div>
       <h1 class="title" v-else>Click "Add a workout"</h1>
     </div>
     <div id="workoutListOptions" class="block is-flex is-flex-direction-column is-flex-align-content-center">
       <!-- Pass new workout id to new workout -->
-      <RouterLink :to="`/workout/${usersStore.newWorkoutId(curUser!.username as string)}`" class="button is-success">
+      <RouterLink :to="`/workout/${newWorkoutId()}`" class="button is-success">
         Add a workout +
       </RouterLink>
       <RouterLink to='/analyze' class="button is-warning">Stats</RouterLink>

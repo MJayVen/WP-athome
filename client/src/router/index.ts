@@ -24,7 +24,7 @@ const router = createRouter({
       component: RegisterView
     },
     {
-      path: '/workout/:id',
+      path: '/workout/:wid',
       name: 'workout',
       component: AddWorkoutView
     },

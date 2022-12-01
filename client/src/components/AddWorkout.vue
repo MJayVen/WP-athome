@@ -1,26 +1,10 @@
 <script setup lang="ts">
-import { useUsersStore } from "../stores/users"
-import { useSessionStore } from "../stores/session"
-import { defineComponent, ref, type Ref } from "vue";
+import { ref } from "vue";
 import router from "@/router";
 import { useRoute } from "vue-router";
+import { addWorkout, getWorkout } from "@/stores/workouts";
+import session from "@/stores/session";
 // import RouterLink from "vue-router";
-
-// Get ID from URL
-const route = useRoute();
-const id = parseInt(route.params.id as string);
-
-const session = useSessionStore();
-
-const curUser = session.getUser;
-const workout = useUsersStore().getWorkout(curUser?.username as string, id as number);
-
-// workout data. uses existing workout values if they exist, otherwise uses defaults
-const name = ref(workout?.name || 'Squats');
-const weight = ref(workout?.weight || 30);
-const reps = ref(workout?.reps || 10);
-// account for time zone, adjust to EST
-const date = ref(workout?.date || new Date(Date.now() + -300*60*1000).toISOString().split("T")[0]);
 
 // list of possible exercises
 const workoutNames = [
@@ -30,9 +14,22 @@ const workoutNames = [
     "Overhead Press",
     "Barbell Row",
 ]
+
+// Get ID from URL to load in workout
+const route = useRoute();
+const wid = parseInt(route.params.wid as string);
+const workout = getWorkout(wid as number);
+
+// workout data. uses existing workout values if they exist, otherwise uses defaults
+const name = ref(workout?.name || 'Squats');
+const weight = ref(workout?.weight || 30);
+const reps = ref(workout?.reps || 10);
+// account for time zone, adjust to EST
+const date = ref(workout?.date || new Date(Date.now() + -300*60*1000).toISOString().split("T")[0]);
+
 function submit() {
-    if (session.loggedIn) {
-        useUsersStore().addWorkout(curUser?.username || "", { id: id as number, name: name.value, weight: weight.value, reps: reps.value, date: date.value })
+    if (session) {
+        addWorkout(wid, name.value, weight.value, reps.value, date.value);
         router.push('/');
     }
 };

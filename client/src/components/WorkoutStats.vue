@@ -1,15 +1,10 @@
 <script setup lang="ts">
-import { users } from "../stores/users";
-import { session } from "../stores/session";
-
-const myUsers = users();
+import workoutList from "@/stores/workouts";
 
 const props = defineProps({
   workoutName: String,
 });
 
-// const workoutList = users.getAllWorkouts(session.username, props.workoutName);
-const workoutList = users.getAllWorkouts();
 // calculate stats
 let maxWeight = 0;
 workoutList.forEach((workout) => {
@@ -27,7 +22,7 @@ avgWeight /= workoutList.length;
 <template>
   <div class="block">
     <h1 class="title">{{ props.workoutName }}</h1>
-    <div v-if="workoutList.length > 0" class="is-flex is-flex-direction-row">
+    <div v-if="workoutList.length" class="is-flex is-flex-direction-row">
       <p>
         <span>Total Workouts: </span>
         <span class="statVal">{{ workoutList.length }}</span>

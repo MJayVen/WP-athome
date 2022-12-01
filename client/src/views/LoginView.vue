@@ -1,15 +1,14 @@
 <script setup lang="ts">
+import { login } from "@/stores/session";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useSessionStore } from "../stores/session";
 
-const session = useSessionStore();
 const username = ref("");
 const password = ref("");
 const router = useRouter();
 
 function submit() {
-  session.login(username.value, password.value);
+  login(username.value, password.value);
   router.push("/");
 }
 </script>

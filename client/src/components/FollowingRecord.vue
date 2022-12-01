@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import { useUsersStore } from "../stores/users";
+import { getWorkoutsById } from '@/stores/workouts';
 
-const usersStore = useUsersStore();
 
 const props = defineProps({
   user: String,
 });
 
-const workouts = usersStore.getAllWorkouts(props.user as string);
+const followerWorkouts = getWorkoutsById(1);
 </script>
 
 <template>
   <div class="block">
     <h1 class="title">{{ props.user }}</h1>
-    <ul v-if="workouts.length">
-      <li v-for="workout in workouts">
+    <ul v-if="followerWorkouts.length">
+      <li v-for="workout in followerWorkouts">
         {{ workout.date }} - {{ workout.name }} - {{ workout.reps }} reps -
         {{ workout.weight }} lbs
       </li>

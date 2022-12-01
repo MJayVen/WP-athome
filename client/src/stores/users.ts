@@ -16,7 +16,7 @@ export function addUser(username: string, password: string) {
         throw new Error('user already exists');
     }
     users.push({
-        uid: users.length,
+        uid: getNewUID(),
         username,
         password,
     });
