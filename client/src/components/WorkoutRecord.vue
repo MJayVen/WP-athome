@@ -1,7 +1,13 @@
-<script setup lang="ts">
+<script setup lang="ts">import type { Workout } from '@/stores/workouts';
+import type { PropType } from 'vue';
+import { RouterLink } from 'vue-router';
+
 
 const props = defineProps({
-  workout: Workout
+  workout: {
+    type: Object as PropType<Workout>,
+    required: true,
+  }
 });
 
 

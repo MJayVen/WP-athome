@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useSessionStore } from "../stores/session";
-import { User, useUsersStore } from "../stores/users";
-import { ref, defineComponent, type PropType } from "vue";
-
-const usersStore = useUsersStore();
-const curUser = useSessionStore();
+import type { User } from "../stores/users";
+import type { PropType } from "vue";
+import { getWorkoutsById } from "@/stores/workouts";
+import session from "@/stores/session";
+import followList, { follow, unfollow } from "@/stores/followers";
+import { deleteUser } from "../stores/users";
 
 const props = defineProps({
   user: {
@@ -13,73 +13,33 @@ const props = defineProps({
   },
 });
 
-// check is logged in user is following listed user
-const isFollowing = ref(
-  usersStore.isFollowing(
-    curUser.username as string,
-    props.user?.username as string
-  )
-);
-
-function followToggle() {
-  // only change if logged in
-  if (curUser.loggedIn) {
-    isFollowing.value = !isFollowing.value;
-  }
-  console.log(isFollowing.value);
-  if (isFollowing.value) {
-    // add follow
-    if (curUser.username != props.user?.username) {
-      // add user to logged-in user's following list
-      usersStore.addFollow(
-        curUser.username as string,
-        props.user?.username as string
-      );
-    } else {
-      console.log("cant follow yourself, dingus :P");
-    }
-  } else {
-    // remove follow
-    usersStore.deleteFollow(
-      curUser.username as string,
-      props.user?.username as string
-    );
-  }
-}
-function deleteUser() {
-  if (curUser.username != props.user?.username) {
-    usersStore.deleteUser(props.user?.username as string);
-  } else {
-    console.log("cant delete yourself, ya silly goof XD");
-  }
-}
 </script>
 
 <template>
   <div class="block">
-    <h1 class="title username">@{{ user?.username }}</h1>
-    <h1 class="title">{{ (user?.workouts || []).length }} total workouts</h1>
+    <h1 class="title username">@{{ user.username }}</h1>
+    <h1 class="title">{{ getWorkoutsById(user.uid).length }} total workouts</h1>
     <div
       class="buttons is-flex is-justify-content-center is-flex-wrap-nowrap"
     >
-      <div v-if="user?.username == curUser.username">
+      <div v-if="(user?.username == session.user?.username)">
         <!-- Already logged in as user -->
         <button class="button is-success">You!</button>
       </div>
       <div v-else>
-        <button class="button is-danger" @click="deleteUser">
+        <button class="button is-danger" @click="deleteUser(user.uid)">
           Delete User
         </button>
         <!-- Not-following -->
         <button
-          v-if="!isFollowing"
+          v-if="followList.includes(user)"
           class="button is-warning"
-          @click="followToggle()"
+          @click="unfollow(user.uid)"
         >
           Follow
         </button>
         <!-- Following -->
-        <button v-else class="button" @click="followToggle()">Following</button>
+        <button v-else class="button" @click="follow(user.uid)">Following</button>
       </div>
     </div>
   </div>

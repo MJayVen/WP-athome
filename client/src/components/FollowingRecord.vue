@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import type { User } from '@/stores/users';
 import { getWorkoutsById } from '@/stores/workouts';
+import type { PropType } from 'vue';
 
 
 const props = defineProps({
-  user: String,
+  user: {
+    type: Object as PropType<User>,
+    required: true,
+  }
 });
 
 const followerWorkouts = getWorkoutsById(1);
