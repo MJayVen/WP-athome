@@ -6,7 +6,7 @@ import FollowingRecord from "../components/FollowingRecord.vue";
 </script>
 
 <template>
-  <div v-if="session" class="container">
+  <div v-if="session.user" class="container">
     <h1 class="title">Friend's Workouts</h1>
     <div class="container" v-if="followList.length">
       <!-- <FollowingRecord
@@ -25,6 +25,7 @@ import FollowingRecord from "../components/FollowingRecord.vue";
 h1 {
   text-align: center;
 }
+
 h2 {
   color: red;
   text-align: center;

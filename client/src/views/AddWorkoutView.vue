@@ -6,7 +6,7 @@ import AddWorkout from "../components/AddWorkout.vue";
 <template>
     <main>
         <!-- pass workout ID to ExerciseList component -->
-        <AddWorkout v-if="session"/>
+        <AddWorkout v-if="session.user" />
         <h1 v-else class="title">Please log in or sign up</h1>
     </main>
 </template>
@@ -15,5 +15,4 @@ import AddWorkout from "../components/AddWorkout.vue";
 h1 {
     text-align: center;
 }
-
 </style>
