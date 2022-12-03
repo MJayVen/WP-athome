@@ -1,6 +1,5 @@
 [
     {
-        "uid": 1,
         "username": "a",
         "password": "a",
         "workouts": [
@@ -27,13 +26,10 @@
             }
         ],
         "following": [
-            2,
-            3,
-            4
+            "b"
         ]
     },
     {
-        "uid": 2,
         "username": "b",
         "password": "b",
         "workouts": [

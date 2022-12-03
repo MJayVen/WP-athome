@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { getUsers } from "@/stores/users";
+import session from "@/stores/session";
+import users from "@/stores/users";
 import UserRecord from "../components/UserRecord.vue";
 
 </script>
@@ -9,7 +10,8 @@ import UserRecord from "../components/UserRecord.vue";
     <div class="container is-flex is-flex-direction-column">
       <h1 class="title">User Management</h1>
       <div class="container">
-        <UserRecord v-for="user in getUsers" :user="user" />
+        <UserRecord v-if="session.user" v-for="user in users" :user="user" />
+        <h1 v-else class="title">Login or sign up to manage users</h1>
       </div>
     </div>
   </main>

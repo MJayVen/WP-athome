@@ -1,14 +1,17 @@
-import { reactive } from "vue";
+import { reactive, watch } from "vue";
+import { loadFollowers } from "./followers";
+import session, { api } from "./session";
 
 const users = reactive([] as User[]);
 
-export function getUsers() {
-  return users;
+function loadUsers() {
+  api(`users/`, null, "GET").then((data) => {
+    users.splice(0, users.length, ...(data as User[]));
+  });
 }
+watch(() => session.user, loadUsers);
 
-export function getUser(uid: number) {
-  return users.find((user) => user.uid === uid);
-}
+export default users;
 
 export function addUser(username: string, password: string) {
   if (username === "" || password === "") {
@@ -17,29 +20,23 @@ export function addUser(username: string, password: string) {
   if (users.find((user) => user.username === username)) {
     throw new Error("user already exists");
   }
-  users.push({
-    uid: getNewUID(),
-    username,
-    password,
+  api(`users/`, { username, password }, "POST").then((data) => {
+    users.push(data as User);
+    console.log("user added");
   });
 }
-export function deleteUser(uid: number) {
-  const user = getUser(uid);
+export function deleteUser(username: string) {
+  const user = users.find((user) => user.username === username);
   if (!user) {
     throw new Error("user does not exist");
   }
-  users.filter((user) => user.uid !== uid);
-}
-
-export function getNewUID() {
-  if (users.length === 0) {
-    return 1;
-  }
-  return users.length + 1;
+  api(`users/${user.username}`, null, "DELETE").then(() => {
+    users.splice(users.indexOf(user), 1);
+    console.log("user deleted");
+  });
 }
 
 export interface User {
-  uid: number;
   username: string;
   password: string;
 }

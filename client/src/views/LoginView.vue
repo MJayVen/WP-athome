@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { login } from "@/stores/session";
+import session, { login } from "@/stores/session";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
@@ -9,7 +9,9 @@ const router = useRouter();
 
 function submit() {
   login(username.value, password.value);
-  router.push("/");
+  if (session.user) {
+    router.push("/");
+  }
 }
 </script>
 
@@ -21,23 +23,13 @@ function submit() {
         <div class="field">
           <label class="label">Username</label>
           <div class="control">
-            <input
-              class="input"
-              type="text"
-              placeholder="Username"
-              v-model="username"
-            />
+            <input class="input" type="text" placeholder="Username" v-model="username" />
           </div>
         </div>
         <div class="field">
           <label class="label">Password</label>
           <div class="control">
-            <input
-              class="input"
-              type="text"
-              placeholder="Password"
-              v-model="password"
-            />
+            <input class="input" type="text" placeholder="Password" v-model="password" />
           </div>
         </div>
         <input type="submit" value="Login" class="button is-success" />
@@ -51,11 +43,13 @@ function submit() {
   min-width: 350px;
   width: 40%;
 }
+
 .box {
   background-color: var(--navy-blue-light);
   border-radius: 5px;
   padding: 1rem;
 }
+
 h1 {
   text-align: center;
 }

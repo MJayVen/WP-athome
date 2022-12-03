@@ -19,9 +19,7 @@ const props = defineProps({
   <div class="block">
     <h1 class="title username">@{{ user.username }}</h1>
     <h1 class="title">{{ getWorkoutsById(user.uid).length }} total workouts</h1>
-    <div
-      class="buttons is-flex is-justify-content-center is-flex-wrap-nowrap"
-    >
+    <div class="buttons is-flex is-justify-content-center is-flex-wrap-nowrap">
       <div v-if="(user?.username == session.user?.username)">
         <!-- Already logged in as user -->
         <button class="button is-success">You!</button>
@@ -31,11 +29,7 @@ const props = defineProps({
           Delete User
         </button>
         <!-- Not-following -->
-        <button
-          v-if="followList.includes(user)"
-          class="button is-warning"
-          @click="unfollow(user.uid)"
-        >
+        <button v-if="followList.includes(user.uid)" class="button is-warning" @click="unfollow(user.uid)">
           Follow
         </button>
         <!-- Following -->

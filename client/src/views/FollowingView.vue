@@ -3,16 +3,15 @@ import followList from "@/stores/followers";
 import session from "@/stores/session";
 import FollowingRecord from "../components/FollowingRecord.vue";
 
+
+console.log(followList);
 </script>
 
 <template>
   <div v-if="session.user" class="container">
     <h1 class="title">Friend's Workouts</h1>
     <div class="container" v-if="followList.length">
-      <!-- <FollowingRecord
-        v-for="followee in followList"
-        :followee="followee.uid"
-      ></FollowingRecord> -->
+      <FollowingRecord v-for="followee in followList" :followee="uid"></FollowingRecord>
     </div>
     <div class="container" v-else>
       <h2 class="title">Looks like you have no friends :(</h2>

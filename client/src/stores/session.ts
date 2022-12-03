@@ -27,16 +27,13 @@ export async function api<T>(url: string, data: any = null, method?: string) {
 }
 
 export function login(username: string, password: string) {
-  api(`users/username/${username}`).then((data) => {
-    if (data as { uid: number }) {
-      session.user = {
-        uid: uid,
-        username: username,
-        password: password,
-      };
+  api("login", { username, password }, "POST").then((data) => {
+    console.log(data);
+    const user = data as User;
+    if (user.username === username) {
+      session.user = user;
     } else {
-      console.log("incorrect username or password");
-      //   session.error = "Invalid username or password";
+      console.log("login failed");
     }
   });
 }

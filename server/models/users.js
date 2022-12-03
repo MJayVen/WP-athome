@@ -10,63 +10,95 @@ const getUsers = () => {
 
 /**
  *
- * @param {number} uid
+ * @param {string} username
  * @returns {User} user matching username
  */
-const getUser = (uid) => {
-  return data.find((user) => user.uid === uid);
+const getUser = (username) => {
+  return data.find((user) => user.username === username);
+};
+
+/**
+ *
+ * @param {User} user object
+ * @returns {User} all users
+ */
+const createUser = (user) => {
+  data.push(user);
+  return user;
+};
+
+/**
+ *
+ * @param {string} username
+ * @returns {User[]} all users
+ */
+const removeUser = (username) => {
+  const i = data.indexOf(getUser(username));
+  if (i > -1) {
+    data.splice(i, 1);
+  }
+  return data;
+};
+
+/**
+ *
+ * @param {string} username
+ * @returns {string[]} list of other users that user is following
+ */
+const getFollowing = (username) => {
+  return data.find((user) => user.username === username).following;
+};
+
+/**
+ *
+ * @param {string} username
+ * @param {string} fusername
+ * @returns {string[]} list of other users that user is following
+ */
+const follow = (username, fusername) => {
+  const follower = getUser(username);
+  if (!follower.following.includes(fusername)) {
+    follower.following.push(fusername);
+  }
+  return follower.following;
+};
+
+/**
+ *
+ * @param {string} username
+ * @param {string} fusername
+ * @returns {string[]} list of uids of users being followed
+ */
+const unfollow = (username, fusername) => {
+  const follower = getUser(username);
+  follower.following = follower.following.filter(
+    (followee) => followee !== fusername
+  );
 };
 
 /**
  *
  * @param {string} username
  * @param {string} password
- * @returns {number} uid
+ * @returns {User} user matching username and password
  */
-const getUserId = (username) => {
-  return { uid: data.find((user) => user.username === username).uid };
-};
-
-/**
- *
- * @param {User} user object
- */
-const createUser = (user) => {
-  data.push(user);
-};
-
-/**
- *
- * @param {number} uid
- * @returns {number[]} list of uids of users being followed
- */
-const getFollowing = (uid) => {
-  return data.find((user) => user.uid === uid).following;
-};
-
-/**
- *
- * @param {number} uid
- * @param {number} fid
- */
-const follow = (uid, fid) => {
-  const follower = getUser(uid);
-  if (!follower.following.includes(fid)) {
-    follower.following.push(fid);
+const login = (username, password) => {
+  const user = getUser(username);
+  if (user && user.password === password) {
+    return {
+      username: user.username,
+      password: user.password,
+    };
   }
-};
-
-const unfollow = (uid, fid) => {
-  const follower = getUser(uid);
-  follower.following = follower.following.filter((uid) => uid !== fid);
 };
 
 module.exports = {
   getUsers,
   getUser,
-  getUserId,
   createUser,
+  removeUser,
   getFollowing,
   follow,
   unfollow,
+  login,
 };
