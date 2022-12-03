@@ -1,24 +1,18 @@
 <script setup lang="ts">
-import type { User } from '@/stores/users';
-import { getWorkoutsById } from '@/stores/workouts';
-import type { PropType } from 'vue';
-
+import { getUserWorkouts } from "@/stores/workouts";
 
 const props = defineProps({
-  user: {
-    type: Object as PropType<User>,
-    required: true,
-  }
+  followee: String,
 });
 
-const followerWorkouts = getWorkoutsById(1);
+const workouts = await getUserWorkouts(props.followee as string);
 </script>
 
 <template>
   <div class="block">
-    <h1 class="title">{{ props.user }}</h1>
-    <ul v-if="followerWorkouts.length">
-      <li v-for="workout in followerWorkouts">
+    <h1 class="title">{{ props.followee }}</h1>
+    <ul v-if="workouts.length">
+      <li v-for="workout in workouts">
         {{ workout.date }} - {{ workout.name }} - {{ workout.reps }} reps -
         {{ workout.weight }} lbs
       </li>
@@ -28,7 +22,6 @@ const followerWorkouts = getWorkoutsById(1);
 </template>
 
 <style scoped>
-
 li {
   font-size: x-large;
   border-bottom: 1px solid var(--white);
@@ -42,7 +35,7 @@ p {
   border-left: 1px solid var(--white);
   padding: 30px;
   width: 90%;
-  margin:auto;
+  margin: auto;
   margin-bottom: 100px;
 }
 </style>

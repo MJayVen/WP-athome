@@ -5,7 +5,7 @@ import session, { api } from "./session";
 const users = reactive([] as User[]);
 
 function loadUsers() {
-  api(`users/`, null, "GET").then((data) => {
+  api(`users/`).then((data) => {
     users.splice(0, users.length, ...(data as User[]));
   });
 }
