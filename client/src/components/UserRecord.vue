@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { User } from "../stores/users";
 import type { PropType } from "vue";
-import { getWorkoutsById } from "@/stores/workouts";
+import { getUserWorkouts } from "@/stores/workouts";
 import session from "@/stores/session";
 import followList, { follow, unfollow } from "@/stores/followers";
 import { deleteUser } from "../stores/users";
@@ -13,30 +13,39 @@ const props = defineProps({
   },
 });
 
+const allWorkouts = await getUserWorkouts(props.user.username);
+// ALL WORKOUTS DOESNT LOAD IN TIME, FIX THIS
 </script>
 
 <template>
-  <div class="block">
-    <h1 class="title username">@{{ user.username }}</h1>
-    <h1 class="title">{{ getWorkoutsById(user.uid).length }} total workouts</h1>
+  <div class="block" v-if="allWorkouts.length">
+    <h1 class="title username">{{ user.username }}</h1>
+    <h1 class="title">{{ allWorkouts.length }} total workouts</h1>
     <div class="buttons is-flex is-justify-content-center is-flex-wrap-nowrap">
-      <div v-if="(user?.username == session.user?.username)">
+      <div v-if="user?.username == session.user?.username">
         <!-- Already logged in as user -->
         <button class="button is-success">You!</button>
       </div>
       <div v-else>
-        <button class="button is-danger" @click="deleteUser(user.uid)">
+        <button class="button is-danger" @click="deleteUser(user.username)">
           Delete User
         </button>
         <!-- Not-following -->
-        <button v-if="followList.includes(user.uid)" class="button is-warning" @click="unfollow(user.uid)">
+        <button
+          v-if="followList.includes(user.username)"
+          class="button is-warning"
+          @click="unfollow(user.username)"
+        >
           Follow
         </button>
         <!-- Following -->
-        <button v-else class="button" @click="follow(user.uid)">Following</button>
+        <button v-else class="button" @click="follow(user.username)">
+          Following
+        </button>
       </div>
     </div>
   </div>
+  <div v-else>loading...</div>
 </template>
 
 <style scoped>

@@ -19,42 +19,34 @@ export function loadWorkouts() {
     workoutList.splice(0, workoutList.length, ...(data as Workout[]));
   });
 }
-// watch session.user to load workouts
 watch(() => session.user, loadWorkouts);
 
-export async function addWorkout(
-  wid: number,
-  name: string,
-  weight: number,
-  reps: number,
-  date: string
-) {
-  const workout = {
-    wid,
-    name,
-    weight,
-    reps,
-    date,
-  };
-  await api(`workouts/${session.user?.username}`, workout).then((data) => {
+export async function getUserWorkouts(username: string): Promise<Workout[]> {
+  return await api(`workouts/${username}`) as Workout[];
+}
+
+export async function addWorkout(workout: Workout) {
+  await api(`workouts/${session.user?.username}`, workout)
+  const i = workoutList.findIndex((w) => w.wid === workout.wid);
+  if (i >= 0) {
+    workoutList.splice(i, 1, workout);
+  } else {
     workoutList.push(workout);
-    console.log("Added workout");
-  });
+  }
+  console.log("Added workout");
 }
 
-export async function getWorkout(wid: number) {
-  return api(`workouts/${session.user?.username}/${wid}`);
+export async function deleteWorkout(wid: number) {
+  await api(`workouts/${session.user?.username}/${wid}`, null, "DELETE")
+  const i = workoutList.findIndex((w) => w.wid === wid);
+  if (i >= 0) {
+    workoutList.splice(i, 1);
+  } else {
+    console.log("workout not found");
+  }
 }
 
-export function getWorkoutsById(wid: number) {
-  /* USE API */
-  return workoutList.filter((workout) => workout.wid === wid);
-  // THIS IS A PLACEHOLDER, USE API
-}
 
-export function deleteWorkout(workout: Workout) {
-  workoutList.filter((workout) => workout.wid !== workout.wid);
-}
 
 export function newWorkoutId() {
   if (workoutList.length === 0) {

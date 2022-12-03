@@ -27,7 +27,7 @@ export async function api<T>(url: string, data: any = null, method?: string) {
 }
 
 export async function login(username: string, password: string) {
-  await api("users/login", { username, password }, "POST").then((data) => {
+  await api("users/login", { username, password }).then((data) => {
     const user = data as User;
     console.log(user.username == username);
     

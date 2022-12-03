@@ -26,13 +26,16 @@ function getWorkout(username, wid) {
  * @param {string} username
  * @param {Workout} workout object
  */
-function addWorkout(username, workout) {
+function addWorkout(username, newWorkout) {
   const user = data.find((user) => user.username === username);
-  const i = user.workouts.indexOf(workout);
-  if (i > -1) {
-    user.workouts[i] = workout;
+  // get index of workout sharing the same wid
+  const i = user.workouts.findIndex(
+    (workout) => workout.wid === newWorkout.wid
+  );
+  if (i >= 0) {
+    user.workouts[i] = newWorkout;
   } else {
-    user.workouts.push(workout);
+    user.workouts.push(newWorkout);
   }
   return user.workouts;
 }

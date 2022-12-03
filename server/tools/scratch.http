@@ -32,3 +32,17 @@ Content-Type: application/json
     "password": "a"
 }
 
+### add workout
+POST http://127.0.0.1:3000/api/v1/workouts/a
+Content-Type: application/json
+
+{
+    "wid": 1,
+    "name": "not a test anymore >:)",
+    "weight": 30,
+    "reps": 10,
+    "date": "2020-01-01"
+}
+
+### remove a workout
+DELETE http://127.0.0.1:3000/api/v1/workouts/a/1
