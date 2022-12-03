@@ -26,10 +26,11 @@ export async function api<T>(url: string, data: any = null, method?: string) {
   return {} as T;
 }
 
-export function login(username: string, password: string) {
-  api("login", { username, password }, "POST").then((data) => {
-    console.log(data);
+export async function login(username: string, password: string) {
+  await api("users/login", { username, password }, "POST").then((data) => {
     const user = data as User;
+    console.log(user.username == username);
+    
     if (user.username === username) {
       session.user = user;
     } else {

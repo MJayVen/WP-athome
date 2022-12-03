@@ -7,8 +7,9 @@ const username = ref("");
 const password = ref("");
 const router = useRouter();
 
-function submit() {
-  login(username.value, password.value);
+async function submit() {
+  await login(username.value, password.value);
+  console.log(session.user);
   if (session.user) {
     router.push("/");
   }

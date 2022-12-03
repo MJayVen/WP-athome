@@ -43,7 +43,8 @@ app
   .post("/login", (req, res, next) => {
     const user = users.login(req.body.username, req.body.password);
     if (user) {
-      res.status(200).json(user);
+      console.log(user);
+      res.status(200).send(user);
     } else {
       res.status(404).send("User not found");
     }

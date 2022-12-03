@@ -12,9 +12,9 @@ export function loadFollowers() {
 }
 watch(() => session.user, loadFollowers);
 
-export function follow(username: string) {
+export async function follow(username: string) {
   if (username) {
-    api(`users/follow/${username}`, null, "PATCH").then(() => {
+    await api(`users/follow/${username}`, null, "PATCH").then(() => {
       followList.push(username);
       console.log("followed user " + username);
     });
@@ -23,10 +23,10 @@ export function follow(username: string) {
   }
 }
 
-export function unfollow(username: string) {
+export async function unfollow(username: string) {
   const i = followList.findIndex((followee) => followee === username);
   if (i > -1) {
-    api(`users/unfollow/${username}`, null, "PATCH").then(() => {
+    await api(`users/unfollow/${username}`, null, "PATCH").then(() => {
       followList.splice(i, 1);
       console.log("unfollowed user " + username);
     });

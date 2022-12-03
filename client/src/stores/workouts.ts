@@ -42,8 +42,8 @@ export async function addWorkout(
   });
 }
 
-export function getWorkout(wid: number) {
-  return workoutList.find((workout) => workout.wid === wid);
+export async function getWorkout(wid: number) {
+  return api(`workouts/${session.user?.username}/${wid}`);
 }
 
 export function getWorkoutsById(wid: number) {
