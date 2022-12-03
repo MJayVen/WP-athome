@@ -23,8 +23,13 @@ const getUser = (username) => {
  * @returns {User} all users
  */
 const createUser = (user) => {
-  data.push(user);
-  return user;
+  data.push({
+    username: user.username,
+    password: user.password,
+    workouts: [],
+    following: [],
+  });
+  return getUser(user.username);
 };
 
 /**
@@ -56,11 +61,11 @@ const getFollowing = (username) => {
  * @returns {string[]} list of other users that user is following
  */
 const follow = (username, fusername) => {
-  const follower = getUser(username);
-  if (!follower.following.includes(fusername)) {
-    follower.following.push(fusername);
+  const user = getUser(username);
+  if (!user.following.includes(fusername)) {
+    user.following.push(fusername);
   }
-  return follower.following;
+  return user.following;
 };
 
 /**
@@ -70,10 +75,11 @@ const follow = (username, fusername) => {
  * @returns {string[]} list of uids of users being followed
  */
 const unfollow = (username, fusername) => {
-  const follower = getUser(username);
-  follower.following = follower.following.filter(
+  const user = getUser(username);
+  user.following = user.following.filter(
     (followee) => followee !== fusername
   );
+  return user.following;
 };
 
 /**
@@ -85,10 +91,7 @@ const unfollow = (username, fusername) => {
 const login = (username, password) => {
   const user = getUser(username);
   if (user && user.password === password) {
-    return {
-      username: user.username,
-      password: user.password,
-    };
+    return getUser(username);
   }
 };
 

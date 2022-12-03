@@ -9,7 +9,6 @@ const router = useRouter();
 
 async function submit() {
   await login(username.value, password.value);
-  console.log(session.user);
   if (session.user) {
     router.push("/");
   }
@@ -24,13 +23,23 @@ async function submit() {
         <div class="field">
           <label class="label">Username</label>
           <div class="control">
-            <input class="input" type="text" placeholder="Username" v-model="username" />
+            <input
+              class="input"
+              type="text"
+              placeholder="Username"
+              v-model="username"
+            />
           </div>
         </div>
         <div class="field">
           <label class="label">Password</label>
           <div class="control">
-            <input class="input" type="text" placeholder="Password" v-model="password" />
+            <input
+              class="input"
+              type="text"
+              placeholder="Password"
+              v-model="password"
+            />
           </div>
         </div>
         <input type="submit" value="Login" class="button is-success" />

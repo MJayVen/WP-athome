@@ -14,10 +14,14 @@ const workoutList = reactive([] as Workout[]);
 export default workoutList;
 
 export function loadWorkouts() {
-  api(`workouts/${session.user?.username}`).then((data) => {
-    console.log("loading in workouts");
-    workoutList.splice(0, workoutList.length, ...(data as Workout[]));
-  });
+  if (session.user) {
+    api(`workouts/${session.user?.username}`).then((data) => {
+      console.log("loading in workouts");
+      workoutList.splice(0, workoutList.length, ...(data as Workout[]));
+    });
+  } else {
+    workoutList.splice(0, workoutList.length);
+  }
 }
 watch(() => session.user, loadWorkouts);
 

@@ -8,9 +8,9 @@ const username = ref("");
 const password = ref("");
 const router = useRouter();
 
-function submit() {
-  addUser(username.value, password.value);
-  login(username.value, password.value);
+async function submit() {
+  await addUser(username.value, password.value);
+  await login(username.value, password.value);
   router.push("/");
 }
 </script>
