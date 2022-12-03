@@ -2,18 +2,8 @@
 import { ref } from "vue";
 import router from "@/router";
 import { useRoute } from "vue-router";
-import workoutList, { addWorkout } from "@/stores/workouts";
+import workoutList, { addWorkout, workoutNames } from "@/stores/workouts";
 import session from "@/stores/session";
-// import RouterLink from "vue-router";
-
-// list of possible exercises
-const workoutNames = [
-  "Squats",
-  "Bench Press",
-  "Deadlift",
-  "Overhead Press",
-  "Barbell Row",
-];
 
 // Get ID from URL to load in workout
 const route = useRoute();

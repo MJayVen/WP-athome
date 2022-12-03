@@ -5,30 +5,37 @@ const props = defineProps({
   workoutName: String,
 });
 
+const subWorkoutList = workoutList.filter((workout) => {
+  return workout.name == props.workoutName;
+});
+
 // calculate stats
 let maxWeight = 0;
-workoutList.forEach((workout) => {
+subWorkoutList.forEach((workout) => {
   if (workout.weight || 0 > maxWeight) {
     maxWeight = workout.weight || maxWeight;
   }
 });
 let avgWeight = 0;
-workoutList.forEach((workout) => {
+subWorkoutList.forEach((workout) => {
   avgWeight += workout.weight || 0;
 });
-avgWeight /= workoutList.length;
+avgWeight /= subWorkoutList.length;
 </script>
 
 <template>
   <div class="block">
     <h1 class="title">{{ props.workoutName }}</h1>
-    <div v-if="workoutList.length" class="is-flex is-flex-direction-row">
+    <div v-if="subWorkoutList.length" class="is-flex is-flex-direction-row">
       <p>
         <span>Total Workouts: </span>
-        <span class="statVal">{{ workoutList.length }}</span>
+        <span class="statVal">{{ subWorkoutList.length }}</span>
       </p>
       <p>
         Max weight: <b>{{ maxWeight }} lbs.</b>
+      </p>
+      <p>
+        Average weight: <b>{{ avgWeight }} lbs.</b>
       </p>
     </div>
     <div v-else class="is-flex is-flex-direction-row">

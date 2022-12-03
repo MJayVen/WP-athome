@@ -9,6 +9,14 @@ export interface Workout {
   date: string;
 }
 
+export const workoutNames = [
+  "Squats",
+  "Bench Press",
+  "Deadlift",
+  "Overhead Press",
+  "Barbell Row",
+];
+
 const workoutList = reactive([] as Workout[]);
 
 export default workoutList;
@@ -49,8 +57,6 @@ export async function deleteWorkout(wid: number) {
     console.log("workout not found");
   }
 }
-
-
 
 export function newWorkoutId() {
   if (workoutList.length === 0) {
