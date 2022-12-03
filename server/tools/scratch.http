@@ -23,17 +23,26 @@ GET http://127.0.0.1:3000/api/v1/users/following/a
 ### remove user
 DELETE http://127.0.0.1:3000/api/v1/users/b
 
+### create user
+POST http://127.0.0.1:3000/api/v1/users
+Content-Type: application/json
+
+{
+    "username": "d",
+    "password": "d"
+}
+
 ### login
 POST http://127.0.0.1:3000/api/v1/users/login
 Content-Type: application/json
 
 {
-    "username": "a",
-    "password": "a"
+    "username": "d",
+    "password": "d"
 }
 
 ### add workout
-POST http://127.0.0.1:3000/api/v1/workouts/a
+POST http://127.0.0.1:3000/api/v1/workouts/c
 Content-Type: application/json
 
 {
@@ -45,4 +54,4 @@ Content-Type: application/json
 }
 
 ### remove a workout
-DELETE http://127.0.0.1:3000/api/v1/workouts/a/1
+DELETE http://127.0.0.1:3000/api/v1/workouts/c/1
