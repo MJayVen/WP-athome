@@ -103,6 +103,7 @@ const login = async (username, password) => {
   const user = await getUser(username);
   if (user && user.password === password) {
     console.log("User " + username + " logged in");
+    console.log(user);
     return user;
   } else {
     console.log("Invalid username or password");

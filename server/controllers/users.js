@@ -56,6 +56,7 @@ app
     users.login(req.body.username, req.body.password)
       .then((data) => {
         if (data) {
+          console.log(data);
           res.status(200).send(data);
         } else {
           res.status(401).send("Invalid username or password");
