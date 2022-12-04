@@ -4,7 +4,7 @@ const app = express()
 const workoutsController = require('./controllers/workouts');
 const usersController = require('./controllers/users');
 
-const hostname = '0.0.0.0';
+const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;
 
 app.use((req, res, next) => {
@@ -23,14 +23,14 @@ app
   .use('/api/v1/users', usersController)
 
 app.get('*', (req, res) => {
-  res.sendFile('index.html', {root: './client/dist'});
+  res.sendFile('index.html', { root: './client/dist' });
 })
 
 app.use((err, req, res, next) => {
   console.log(err);
-  res.status( err.httpCode ?? 500).send({
-      message: err.message ?? 'Something went wrong',
-      status: err.httpCode ?? 500
+  res.status(err.httpCode ?? 500).send({
+    message: err.message ?? 'Something went wrong',
+    status: err.httpCode ?? 500
   });
 })
 
