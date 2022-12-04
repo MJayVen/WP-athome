@@ -1,10 +1,23 @@
 const data = require("../data/users.json");
+const { connect } = require("./mongo");
+const { ObjectId } = require("mongodb");
+
+const DATABASE_NAME = "fit-tracker";
+const COLLECTION_NAME = "users";
+
+
+const collection = async () => {
+  const client = await connect();
+  return client.db(DATABASE_NAME).collection(COLLECTION_NAME);
+};
 
 /**
  *
  * @returns { User[] } all users
  */
-const getUsers = () => {
+const getUsers = async () => {
+  const db = await collection();
+  const data = await db.find().toArray();
   return data;
 };
 
@@ -13,8 +26,10 @@ const getUsers = () => {
  * @param {string} username
  * @returns {User} user matching username
  */
-const getUser = (username) => {
-  return data.find((user) => user.username === username);
+const getUser = async (username) => {
+  const db = await collection();
+  const data = await db.findOne({ username });
+  return data;
 };
 
 /**
@@ -22,8 +37,9 @@ const getUser = (username) => {
  * @param {User} user object
  * @returns {User} all users
  */
-const createUser = (user) => {
-  data.push({
+const createUser = async (user) => {
+  const db = await collection();
+  await db.insertOne({
     username: user.username,
     password: user.password,
     workouts: [],
@@ -35,14 +51,10 @@ const createUser = (user) => {
 /**
  *
  * @param {string} username
- * @returns {User[]} all users
  */
-const removeUser = (username) => {
-  const i = data.indexOf(getUser(username));
-  if (i > -1) {
-    data.splice(i, 1);
-  }
-  return data;
+const removeUser = async (username) => {
+  const db = await collection();
+  await db.deleteOne({ username });
 };
 
 /**
@@ -50,36 +62,35 @@ const removeUser = (username) => {
  * @param {string} username
  * @returns {string[]} list of other users that user is following
  */
-const getFollowing = (username) => {
-  return data.find((user) => user.username === username).following;
+const getFollowing = async (username) => {
+  const user = await getUser(username);
+  return user.following;
 };
 
 /**
  *
  * @param {string} username
  * @param {string} fusername
- * @returns {string[]} list of other users that user is following
  */
-const follow = (username, fusername) => {
-  const user = getUser(username);
+const follow = async (username, fusername) => {
+  const db = await collection();
+  const user = await getUser(username);
   if (!user.following.includes(fusername)) {
-    user.following.push(fusername);
+    await db.updateOne({ username: username }, { $push: { following: fusername } });
   }
-  return user.following;
 };
 
 /**
  *
  * @param {string} username
  * @param {string} fusername
- * @returns {string[]} list of uids of users being followed
  */
-const unfollow = (username, fusername) => {
-  const user = getUser(username);
-  user.following = user.following.filter(
-    (followee) => followee !== fusername
-  );
-  return user.following;
+const unfollow = async (username, fusername) => {
+  const db = await collection();
+  const user = await getUser(username);
+  if (user.following.includes(fusername)) {
+    await db.updateOne({ username: username }, { $pull: { following: fusername } });
+  }
 };
 
 /**
@@ -88,14 +99,25 @@ const unfollow = (username, fusername) => {
  * @param {string} password
  * @returns {User} user matching username and password
  */
-const login = (username, password) => {
-  const user = getUser(username);
+const login = async (username, password) => {
+  const user = await getUser(username);
   if (user && user.password === password) {
-    return getUser(username);
+    console.log("User " + username + " logged in");
+    return user;
+  } else {
+    console.log("Invalid username or password");
+    return null;
   }
 };
 
+const seed = async () => {
+  const db = await collection();
+  await db.deleteMany();
+  await db.insertMany(data);
+}
+
 module.exports = {
+  collection,
   getUsers,
   getUser,
   createUser,
@@ -104,4 +126,5 @@ module.exports = {
   follow,
   unfollow,
   login,
+  seed
 };

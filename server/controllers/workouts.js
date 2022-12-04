@@ -6,27 +6,33 @@ const app = express.Router();
 
 app
   .get("/:username", (req, res, next) => {
-    const userWorkouts = workouts.getWorkouts(req.params.username);
-    res.status(200).send(userWorkouts);
+    workouts.getWorkouts(req.params.username)
+      .then((data) => {
+        res.status(200).send(data);
+      })
   })
   .get("/:username/:wid", (req, res, next) => {
-    const workout = workouts.getWorkout(req.params.username, +req.params.wid);
-    if (workout) {
-      res.send(workout);
-    } else {
-      res.status(404).send("Workout not found");
-    }
+    workouts.getWorkout(req.params.username, +req.params.wid)
+      .then((data) => {
+        if (data) {
+          res.status(200).send(data);
+        } else {
+          res.status(404).send("Workout not found");
+        }
+      })
   })
   .post("/:username", (req, res, next) => {
-    const newWorkout = workouts.addWorkout(req.params.username, req.body);
-    res.status(201).send(newWorkout);
+    workouts.addWorkout(req.params.username, req.body)
+      .then((data) => {
+        res.status(201).send("Workout added");
+      })
+      .catch(next);
   })
   .delete("/:username/:wid", (req, res, next) => {
-    const removingWorkout = workouts.removeWorkout(
-      req.params.username,
-      +req.params.wid
-    );
-    res.status(200).send(removingWorkout);
+    workouts.removeWorkout(req.params.username, +req.params.wid)
+      .then((data) => {
+        res.status(200).send("Workout deleted");
+      })
   });
 
 module.exports = app;

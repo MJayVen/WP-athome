@@ -1,12 +1,16 @@
 const data = require("../data/users.json");
+const { connect } = require("./mongo");
+// import function collection() from users.js
+const { collection, getUser } = require("./users");
 
 /**
  *
  * @param {string} userame
  * @returns {object[]} all workouts for a user
  */
-function getWorkouts(username) {
-  return data.find((user) => user.username === username).workouts;
+const getWorkouts = async (username) => {
+  const user = await getUser(username);
+  return user.workouts;
 }
 
 /**
@@ -15,10 +19,9 @@ function getWorkouts(username) {
  * @param {number} wid
  * @returns {object} single workout from a user
  */
-function getWorkout(username, wid) {
-  return data
-    .find((user) => user.username === username)
-    .workouts.find((workout) => workout.wid === wid);
+const getWorkout = async (username, wid) => {
+  const user = await getUser(username);
+  return user.workouts.find((workout) => workout.wid === wid);
 }
 
 /**
@@ -26,18 +29,19 @@ function getWorkout(username, wid) {
  * @param {string} username
  * @param {Workout} workout object
  */
-function addWorkout(username, newWorkout) {
-  const user = data.find((user) => user.username === username);
-  // get index of workout sharing the same wid
-  const i = user.workouts.findIndex(
-    (workout) => workout.wid === newWorkout.wid
-  );
-  if (i >= 0) {
-    user.workouts[i] = newWorkout;
+const addWorkout = async (username, newWorkout) => {
+  const db = await collection();
+  const user = await getUser(username);
+  const workout = user.workouts.find((workout) => workout.wid === newWorkout.wid);
+  console.log(workout);
+  if (workout) {
+    await db.updateOne(
+      { username: username, workouts: { $elemMatch: { wid: newWorkout.wid } } },
+      { $set: { "workouts.$": newWorkout } });
   } else {
-    user.workouts.push(newWorkout);
+    await db.updateOne({ username: username, },
+      { $push: { workouts: newWorkout } });
   }
-  return user.workouts;
 }
 
 /**
@@ -45,11 +49,14 @@ function addWorkout(username, newWorkout) {
  * @param {string} username
  * @param {number} wid
  */
-function removeWorkout(username, wid) {
-  const user = data.find((user) => user.username === username);
-  user.workouts = user.workouts.filter((workout) => workout.wid !== wid);
-  return user.workouts;
+const removeWorkout = async (username, wid) => {
+  const db = await collection();
+  await db.updateOne(
+    { username: username },
+    { $pull: { workouts: { wid: wid } } }
+  )
 }
+
 
 module.exports = {
   getWorkouts,
