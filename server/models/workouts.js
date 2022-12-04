@@ -33,7 +33,6 @@ const addWorkout = async (username, newWorkout) => {
   const db = await collection();
   const user = await getUser(username);
   const workout = user.workouts.find((workout) => workout.wid === newWorkout.wid);
-  console.log(workout);
   if (workout) {
     await db.updateOne(
       { username: username, workouts: { $elemMatch: { wid: newWorkout.wid } } },
