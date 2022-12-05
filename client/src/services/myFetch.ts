@@ -9,6 +9,7 @@ export default function myFetch<T>(
     method: method ?? (data ? "POST" : "GET"),
     headers: {
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
     },
     body: data ? JSON.stringify(data) : undefined,
   };
