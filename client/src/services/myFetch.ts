@@ -13,6 +13,8 @@ export default function myFetch<T>(
     body: data ? JSON.stringify(data) : undefined,
   };
   return fetch(API_ROOT + url, options).then((x) => {
+    console.log(x);
+    console.log(x.json());
     if (x.ok) {
       return x.json();
     } else {
