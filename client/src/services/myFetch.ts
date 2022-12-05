@@ -14,9 +14,9 @@ export default function myFetch<T>(
     body: data ? JSON.stringify(data) : undefined,
   };
   return fetch(API_ROOT + url, options).then((x) => {
-    console.log(x);
-    console.log(x.json());
     if (x.ok) {
+      // const json = x.json();
+      // json.then((x) => console.log(x));
       return x.json();
     } else {
       return x.json().then((y) => {
