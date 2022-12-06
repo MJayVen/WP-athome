@@ -29,6 +29,10 @@ export const isLoading = computed(() => !!session.loading);
 
 export async function login(username: string, password: string) {
   await api<User>("users/login", { username, password }).then((user) => {
+    if (!user.username) {
+      setError("Invalid username or password");
+      return;
+    }
     session.user = user;
     session.messages.push({ type: "success", text: `You logged in as ${username}` });
   });
