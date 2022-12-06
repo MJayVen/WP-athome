@@ -1,12 +1,13 @@
 @import "bulma/bulma.sass";
-@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/css/all.css';
 
 // Website Color vars
 :root {
     --white: #f8f8f8;
     --navy-blue-dark: #0a192f;
     --navy-blue: #00051F;
-    --navy-blue-light: #082b57;
+    --navy-blue-light: #0e3564;
+    --navy-blue-lighter: #17518b;
     --dark-blue: #1218c5;
 }
 

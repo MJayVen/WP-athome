@@ -1,5 +1,5 @@
 import { reactive, watch } from "vue";
-import session, { api } from "./session";
+import session, { api, setError } from "./session";
 
 export interface Workout {
   wid: number;
@@ -42,20 +42,18 @@ export async function addWorkout(workout: Workout) {
   const i = workoutList.findIndex((w) => w.wid === workout.wid);
   if (i >= 0) {
     workoutList.splice(i, 1, workout);
+    session.messages.push({ type: 'success', text: 'Added workout.' })
   } else {
     workoutList.push(workout);
+    session.messages.push({ type: 'success', text: 'Updated workout.' })
   }
-  console.log("Added workout");
 }
 
 export async function deleteWorkout(wid: number) {
   await api(`workouts/${session.user?.username}/${wid}`, null, "DELETE")
   const i = workoutList.findIndex((w) => w.wid === wid);
-  if (i >= 0) {
-    workoutList.splice(i, 1);
-  } else {
-    console.log("workout not found");
-  }
+  workoutList.splice(i, 1);
+  session.messages.push({ type: 'success', text: 'Workout deleted.' })
 }
 
 export function newWorkoutId() {

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import LoginBadge from "./LoginBadge.vue";
+import Notifications from "./Notifications.vue";
 let isActive = ref(false); // reactive variable for hamburger menu
 </script>
 
@@ -33,6 +34,7 @@ let isActive = ref(false); // reactive variable for hamburger menu
 
       <div id="myNavbar" class="navbar-menu" :class="{ 'is-active': isActive }">
         <div class="navbar-end">
+          <Notifications />
           <div class="navbar-item">
             <RouterLink to="/users" class="button is-dark">
               Manage Users

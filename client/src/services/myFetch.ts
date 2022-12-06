@@ -9,15 +9,17 @@ export default function myFetch<T>(
     method: method ?? (data ? "POST" : "GET"),
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
     },
     body: data ? JSON.stringify(data) : undefined,
   };
   return fetch(API_ROOT + url, options).then((x) => {
+    const contentType = x.headers.get("content-type");
     if (x.ok) {
-      // const json = x.json();
-      // json.then((x) => console.log(x));
-      return x.json();
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        return x.json();
+      } else {
+        return x.text();
+      }
     } else {
       return x.json().then((y) => {
         throw y;

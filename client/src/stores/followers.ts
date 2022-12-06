@@ -17,24 +17,16 @@ export function loadFollowers() {
 watch(() => session.user, loadFollowers);
 
 export async function follow(fusername: string) {
-  if (fusername) {
-    await api(`users/follow/${session.user?.username}/${fusername}`, null, "PATCH").then(() => {
-      followList.push(fusername);
-      console.log("followed user " + fusername);
-    });
-  } else {
-    console.log("user " + fusername + " not found");
-  }
+  api(`users/follow/${session.user?.username}/${fusername}`, null, "PATCH").then(() => {
+    followList.push(fusername);
+    session.messages.push({ type: 'success', text: `You followed ${fusername}` })
+  });
 }
 
 export async function unfollow(fusername: string) {
-  const i = followList.findIndex((followee) => followee === fusername);
-  if (i > -1) {
-    await api(`users/unfollow/${session.user?.username}/${fusername}`, null, "PATCH").then(() => {
-      followList.splice(i, 1);
-      console.log("unfollowed user " + fusername);
-    });
-  } else {
-    console.log("user " + fusername + " not found");
-  }
+  await api(`users/unfollow/${session.user?.username}/${fusername}`, null, "PATCH").then(() => {
+    const i = followList.findIndex((followee) => followee === fusername);
+    followList.splice(i, 1);
+    session.messages.push({ type: 'warning', text: `You unfollowed ${fusername}` })
+  });
 }

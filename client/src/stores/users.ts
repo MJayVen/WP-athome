@@ -6,7 +6,7 @@ const users = reactive([] as User[]);
 
 function loadUsers() {
   if (session.user) {
-    api(`users/`).then((data) => {
+    api(`users`).then((data) => {
       users.splice(0, users.length, ...(data as User[]));
     });
   } else {
@@ -18,25 +18,16 @@ watch(() => session.user, loadUsers);
 export default users;
 
 export async function addUser(username: string, password: string) {
-  if (username === "" || password === "") {
-    throw new Error("username or password cannot be empty");
-  }
-  if (users.find((user) => user.username === username)) {
-    throw new Error("user already exists");
-  }
-  await api(`users/`, { username, password }, "POST").then((data) => {
-    users.push(data as User);
-    console.log("user added");
+  api<User>(`users`, { username, password }, "POST").then((data) => {
+    users.push(data);
+    session.messages.push({ type: 'success', text: `You added user ${username}` })
   });
 }
 export async function deleteUser(username: string) {
-  const user = users.find((user) => user.username === username);
-  if (!user) {
-    throw new Error("user does not exist");
-  }
-  await api(`users/${user.username}`, null, "DELETE").then(() => {
-    users.splice(users.indexOf(user), 1);
-    console.log("user deleted");
+  await api(`users/${username}`, null, "DELETE").then(() => {
+    const i = users.findIndex((user) => user.username === username);
+    users.splice(i, 1);
+    session.messages.push({ type: 'success', text: `You deleted user ${username}` })
   });
 }
 

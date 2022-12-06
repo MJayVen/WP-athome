@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import session, { logout } from '@/stores/session';
+import session, { logout } from "@/stores/session";
 </script>
 
 <!-- Component which holds buttons allowing user to login/sign in.
@@ -11,9 +11,8 @@ import session, { logout } from '@/stores/session';
         {{ session.user?.username }}
       </a>
       <div class="navbar-dropdown">
-        <RouterLink to='/' class="navbar-item"> My Workouts </RouterLink>
-        <RouterLink to='/following' class="navbar-item"> Friends </RouterLink>
-        <!-- <a class="navbar-item"> Settings (not implemented) </a> -->
+        <RouterLink to="/" class="navbar-item"> My Workouts </RouterLink>
+        <RouterLink to="/following" class="navbar-item"> Friends </RouterLink>
         <hr class="navbar-divider" />
         <a class="navbar-item" @click="logout()"> Logout </a>
       </div>
@@ -25,6 +24,4 @@ import session, { logout } from '@/stores/session';
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
