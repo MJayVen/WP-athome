@@ -38,14 +38,14 @@ const getUser = async (username) => {
  * @returns {User} all users
  */
 const createUser = async (user) => {
+  if (!user.username || !user.password) throw new Error("Username and password are required");
   const db = await collection();
   await db.insertOne({
     username: user.username,
     password: user.password,
     workouts: [],
     following: [],
-  });
-  return getUser(user.username);
+  }).then(() => user);
 };
 
 /**
@@ -100,6 +100,7 @@ const unfollow = async (username, fusername) => {
  * @returns {User} user matching username and password
  */
 const login = async (username, password) => {
+  if (!username || !password) throw new Error("Username and password are required");
   const user = await getUser(username);
   if (user && user.password === password) {
     console.log("User " + username + " logged in");

@@ -18,8 +18,8 @@ watch(() => session.user, loadUsers);
 export default users;
 
 export async function addUser(username: string, password: string) {
-  api<User>(`users`, { username, password }, "POST").then((data) => {
-    users.push(data);
+  api<User>(`users`, { username, password }, "POST").then((user) => {
+    users.push(user);
     session.messages.push({ type: 'success', text: `You added user ${username}` })
   });
 }

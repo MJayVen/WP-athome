@@ -28,6 +28,7 @@ async function submit() {
               type="text"
               placeholder="Username"
               v-model="username"
+              required
             />
           </div>
         </div>
@@ -39,6 +40,7 @@ async function submit() {
               type="text"
               placeholder="Password"
               v-model="password"
+              required
             />
           </div>
         </div>

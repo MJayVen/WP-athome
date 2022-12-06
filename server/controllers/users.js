@@ -55,12 +55,14 @@ app
   .post("/login", (req, res, next) => {
     users.login(req.body.username, req.body.password)
       .then((data) => {
+        console.log(data)
         if (data) {
           res.status(200).send(data);
         } else {
           res.status(401).send("Invalid username or password");
         }
-      });
+      })
+      .catch(next);
   })
   .post("/seed", (req, res, next) => {
     users.seed();
