@@ -22,17 +22,8 @@ const results = computed(() => {
 <template>
   <div v-if="session.user" class="container">
     <h1 class="title">Your Workout Stats</h1>
-    <input
-      class="input is-medium"
-      type="text"
-      placeholder="Search for workout type"
-      v-model="search"
-    />
-    <WorkoutStats
-      v-if="results.length > 0"
-      v-for="workoutName in results"
-      :workoutName="workoutName"
-    />
+    <input class="input is-medium" type="text" placeholder="Search for workout type" v-model="search" />
+    <WorkoutStats v-if="results.length > 0" v-for="workoutName in results" :workoutName="workoutName" />
     <h2 v-else class="title">Workout type not found...</h2>
   </div>
   <h1 v-else class="title">Please log in or sign up</h1>
@@ -43,6 +34,7 @@ h1 {
   margin-top: 1rem;
   text-align: center;
 }
+
 h2 {
   margin-left: 5%;
 }

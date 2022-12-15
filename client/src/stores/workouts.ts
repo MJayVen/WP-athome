@@ -34,26 +34,26 @@ export function loadWorkouts() {
 watch(() => session.user, loadWorkouts);
 
 export async function getUserWorkouts(username: string): Promise<Workout[]> {
-  return await api(`workouts/${username}`) as Workout[];
+  return (await api(`workouts/${username}`)) as Workout[];
 }
 
 export async function addWorkout(workout: Workout) {
-  await api(`workouts/${session.user?.username}`, workout)
+  await api(`workouts/${session.user?.username}`, workout);
   const i = workoutList.findIndex((w) => w.wid === workout.wid);
   if (i >= 0) {
     workoutList.splice(i, 1, workout);
-    session.messages.push({ type: 'success', text: 'Added workout.' })
+    session.messages.push({ type: "success", text: "Added workout." });
   } else {
     workoutList.push(workout);
-    session.messages.push({ type: 'success', text: 'Updated workout.' })
+    session.messages.push({ type: "success", text: "Updated workout." });
   }
 }
 
 export async function deleteWorkout(wid: number) {
-  await api(`workouts/${session.user?.username}/${wid}`, null, "DELETE")
+  await api(`workouts/${session.user?.username}/${wid}`, null, "DELETE");
   const i = workoutList.findIndex((w) => w.wid === wid);
   workoutList.splice(i, 1);
-  session.messages.push({ type: 'success', text: 'Workout deleted.' })
+  session.messages.push({ type: "success", text: "Workout deleted." });
 }
 
 export function newWorkoutId() {

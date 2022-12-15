@@ -5,7 +5,6 @@ const { ObjectId } = require("mongodb");
 const DATABASE_NAME = "fit-tracker";
 const COLLECTION_NAME = "users";
 
-
 const collection = async () => {
   const client = await connect();
   return client.db(DATABASE_NAME).collection(COLLECTION_NAME);
@@ -38,14 +37,17 @@ const getUser = async (username) => {
  * @returns {User} all users
  */
 const createUser = async (user) => {
-  if (!user.username || !user.password) throw new Error("Username and password are required");
+  if (!user.username || !user.password)
+    throw new Error("Username and password are required");
   const db = await collection();
-  await db.insertOne({
-    username: user.username,
-    password: user.password,
-    workouts: [],
-    following: [],
-  }).then(() => user);
+  await db
+    .insertOne({
+      username: user.username,
+      password: user.password,
+      workouts: [],
+      following: [],
+    })
+    .then(() => user);
 };
 
 /**
@@ -76,7 +78,10 @@ const follow = async (username, fusername) => {
   const db = await collection();
   const user = await getUser(username);
   if (!user.following.includes(fusername)) {
-    await db.updateOne({ username: username }, { $push: { following: fusername } });
+    await db.updateOne(
+      { username: username },
+      { $push: { following: fusername } }
+    );
   }
 };
 
@@ -89,7 +94,10 @@ const unfollow = async (username, fusername) => {
   const db = await collection();
   const user = await getUser(username);
   if (user.following.includes(fusername)) {
-    await db.updateOne({ username: username }, { $pull: { following: fusername } });
+    await db.updateOne(
+      { username: username },
+      { $pull: { following: fusername } }
+    );
   }
 };
 
@@ -100,7 +108,8 @@ const unfollow = async (username, fusername) => {
  * @returns {User} user matching username and password
  */
 const login = async (username, password) => {
-  if (!username || !password) throw new Error("Username and password are required");
+  if (!username || !password)
+    throw new Error("Username and password are required");
   const user = await getUser(username);
   if (user && user.password === password) {
     console.log("User " + username + " logged in");
@@ -115,7 +124,15 @@ const seed = async () => {
   const db = await collection();
   await db.deleteMany();
   await db.insertMany(data);
-}
+};
+
+const searchUsers = async (username) => {
+  const db = await collection();
+  const data = await db.find({ username: { $regex: username } }).toArray();
+  return data.map((user) => {
+    return { username: user.username, password: user.password };
+  });
+};
 
 module.exports = {
   collection,
@@ -127,5 +144,6 @@ module.exports = {
   follow,
   unfollow,
   login,
-  seed
+  seed,
+  searchUsers,
 };

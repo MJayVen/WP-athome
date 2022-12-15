@@ -20,15 +20,25 @@ export default users;
 export async function addUser(username: string, password: string) {
   api<User>(`users`, { username, password }, "POST").then((user) => {
     users.push(user);
-    session.messages.push({ type: 'success', text: `You added user ${username}` })
+    session.messages.push({
+      type: "success",
+      text: `You added user ${username}`,
+    });
   });
 }
 export async function deleteUser(username: string) {
   await api(`users/${username}`, null, "DELETE").then(() => {
     const i = users.findIndex((user) => user.username === username);
     users.splice(i, 1);
-    session.messages.push({ type: 'success', text: `You deleted user ${username}` })
+    session.messages.push({
+      type: "success",
+      text: `You deleted user ${username}`,
+    });
   });
+}
+
+export async function searchUsers(search: string) {
+  return (await api<User[]>(`users/search/${search}`)) as User[];
 }
 
 export interface User {

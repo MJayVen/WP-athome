@@ -11,7 +11,7 @@ const { collection, getUser } = require("./users");
 const getWorkouts = async (username) => {
   const user = await getUser(username);
   return user.workouts;
-}
+};
 
 /**
  *
@@ -22,7 +22,7 @@ const getWorkouts = async (username) => {
 const getWorkout = async (username, wid) => {
   const user = await getUser(username);
   return user.workouts.find((workout) => workout.wid === wid);
-}
+};
 
 /**
  *
@@ -32,16 +32,21 @@ const getWorkout = async (username, wid) => {
 const addWorkout = async (username, newWorkout) => {
   const db = await collection();
   const user = await getUser(username);
-  const workout = user.workouts.find((workout) => workout.wid === newWorkout.wid);
+  const workout = user.workouts.find(
+    (workout) => workout.wid === newWorkout.wid
+  );
   if (workout) {
     await db.updateOne(
       { username: username, workouts: { $elemMatch: { wid: newWorkout.wid } } },
-      { $set: { "workouts.$": newWorkout } });
+      { $set: { "workouts.$": newWorkout } }
+    );
   } else {
-    await db.updateOne({ username: username, },
-      { $push: { workouts: newWorkout } });
+    await db.updateOne(
+      { username: username },
+      { $push: { workouts: newWorkout } }
+    );
   }
-}
+};
 
 /**
  *
@@ -53,9 +58,8 @@ const removeWorkout = async (username, wid) => {
   await db.updateOne(
     { username: username },
     { $pull: { workouts: { wid: wid } } }
-  )
-}
-
+  );
+};
 
 module.exports = {
   getWorkouts,
